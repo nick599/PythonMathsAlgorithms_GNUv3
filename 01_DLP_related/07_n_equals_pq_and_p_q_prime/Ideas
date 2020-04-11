@@ -1,0 +1,18 @@
+Objective: want to see after semiprimes, what number type has largest influence
+on factoring time for a laptop.
+
+1)
+Want:
+list of semiprimes upto 10000 
+list of semiprimes upto 100000 
+list of semiprimes upto 1000000 - DONE
+
+2) 
+Generate list of non-semiprimes upto 10000
+Generate list of non-semiprimes upto 100000 
+Generate list of non-semiprimes upto 1000000
+
+3)
+Test non-semiprimes upto 10000
+Test non-semiprimes upto 100000
+Test non-semiprimes upto 1000000

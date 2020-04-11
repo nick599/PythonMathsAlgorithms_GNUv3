@@ -1,0 +1,28 @@
+Output
+------------
+g:2p:3467, len_G_list:3466, max_h_values:0.004844, h_value_max:1120, mean_h_values:0.003109, h_power_values:1733_2, gi_values:3466_4
+g:2p:3779, len_G_list:3778, max_h_values:0.004873, h_value_max:2571, mean_h_values:0.003451, h_power_values:1889_2, gi_values:3778_4
+g:2p:3803, len_G_list:3802, max_h_values:0.004831, h_value_max:1, mean_h_values:0.003411, h_power_values:1901_2, gi_values:3802_4
+g:2p:3947, len_G_list:3946, max_h_values:0.004991, h_value_max:2297, mean_h_values:0.003576, h_power_values:1973_2, gi_values:3946_4
+g:2p:4139, len_G_list:4138, max_h_values:0.006536, h_value_max:1657, mean_h_values:0.003787, h_power_values:2069_2, gi_values:4138_4
+g:2p:4259, len_G_list:4258, max_h_values:0.007939, h_value_max:2213, mean_h_values:0.003929, h_power_values:2129_2, gi_values:4258_4
+g:2p:4283, len_G_list:4282, max_h_values:0.005725, h_value_max:2052, mean_h_values:0.003894, h_power_values:2141_2, gi_values:4282_4
+g:2p:4547, len_G_list:4546, max_h_values:0.005878, h_value_max:1111, mean_h_values:0.004178, h_power_values:2273_2, gi_values:4546_4
+g:2p:4787, len_G_list:4786, max_h_values:0.006276, h_value_max:3085, mean_h_values:0.004367, h_power_values:2393_2, gi_values:4786_4
+g:2p:5099, len_G_list:5098, max_h_values:0.00679, h_value_max:2882, mean_h_values:0.004848, h_power_values:2549_2, gi_values:5098_4
+g:2p:5387, len_G_list:5386, max_h_values:0.006966, h_value_max:3550, mean_h_values:0.004954, h_power_values:2693_2, gi_values:5386_4
+g:2p:5483, len_G_list:5482, max_h_values:0.007142, h_value_max:2262, mean_h_values:0.005106, h_power_values:2741_2, gi_values:5482_4
+g:2p:5507, len_G_list:5506, max_h_values:0.007081, h_value_max:1, mean_h_values:0.005121, h_power_values:2753_2, gi_values:5506_4
+g:2p:5939, len_G_list:5938, max_h_values:0.010168, h_value_max:2768, mean_h_values:0.005436, h_power_values:2969_2, gi_values:5938_4
+g:2p:6389, len_G_list:6388, max_h_values:0.004238, h_value_max:1, mean_h_values:0.003006, h_power_values:1597_4, gi_values:4297_16
+g:2p:6653, len_G_list:6652, max_h_values:0.004409, h_value_max:46, mean_h_values:0.003137, h_power_values:1663_4, gi_values:752_16
+g:2p:6659, len_G_list:6658, max_h_values:0.009101, h_value_max:14, mean_h_values:0.006331, h_power_values:3329_2, gi_values:6658_4
+g:2p:6779, len_G_list:6778, max_h_values:0.009158, h_value_max:1, mean_h_values:0.006439, h_power_values:3389_2, gi_values:6778_4
+g:2p:6827, len_G_list:6826, max_h_values:0.014086, h_value_max:1737, mean_h_values:0.006484, h_power_values:3413_2, gi_values:6826_4
+g:2p:6899, len_G_list:6898, max_h_values:0.009183, h_value_max:1, mean_h_values:0.006512, h_power_values:3449_2, gi_values:6898_4
+g:2p:7013, len_G_list:7012, max_h_values:0.005703, h_value_max:1, mean_h_values:0.003259, h_power_values:1753_4, gi_values:2480_16
+g:2p:7109, len_G_list:7108, max_h_values:0.004696, h_value_max:640, mean_h_values:0.003332, h_power_values:1777_4, gi_values:304_16
+g:2p:7187, len_G_list:7186, max_h_values:0.009607, h_value_max:1777, mean_h_values:0.00685, h_power_values:3593_2, gi_values:7186_4
+g:2p:7517, len_G_list:7516, max_h_values:0.005093, h_value_max:1, mean_h_values:0.003569, h_power_values:1879_4, gi_values:4108_16
+g:2p:7523, len_G_list:7522, max_h_values:0.010076, h_value_max:89, mean_h_values:0.007174, h_power_values:3761_2, gi_values:7522_4
+g:2p:7643, len_G_list:7642, max_h_values:0.010617, h_value_max:5184, mean_h_values:0.00726, h_power_values:3821_2, gi_values:7642_4

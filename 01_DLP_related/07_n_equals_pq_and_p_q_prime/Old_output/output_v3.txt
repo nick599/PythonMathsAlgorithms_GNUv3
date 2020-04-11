@@ -1,0 +1,5 @@
+Output
+------------
+number:10000, len p_q_list:2625, c_after_loop:0.12720823287963867
+number:100000, len p_q_list:23378, c_after_loop:2.0014874935150146
+number:1000000, len p_q_list:210035, c_after_loop:84.29649019241333
