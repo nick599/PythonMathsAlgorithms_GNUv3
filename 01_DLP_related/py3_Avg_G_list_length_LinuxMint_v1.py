@@ -20,8 +20,6 @@ print("where p is a prime number.")
 print("It has been tested on Linux Mint v3.19 x64")
 print("---------------------------------------------------------------------")
 
-version = "2"
-
 version = "v2"
 
 python_version = sys.version
