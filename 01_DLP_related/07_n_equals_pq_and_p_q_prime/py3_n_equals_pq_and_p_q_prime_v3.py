@@ -128,7 +128,8 @@ def ghp_checks(g, p, h, floor_sqrt_p):
 	
 	return status
 
-def isprime(p):		#this is O(sqrt(n))
+def isprime(p):		
+	#Likely O(sqrt(n))
 	
 	#print("Running isprime("+str(p)+").."
 	# www.rookieslab.com/posts/fastest-way-to-check-if-a-number-is-prime-or-not
@@ -152,14 +153,14 @@ def txtfile_append(data,filepath):
 		#txtfile.write(bytes(data,'UTF'))
 		txtfile.close()	
 
-def factorise(N):		
+def factorise_235wheel(N):		
 	#based on code on https://stackoverflow.com/questions/16996217/prime-factorization-list/
 	#Author states this is is O(sqrt(n))) and 2 to 3 times faster than trial division in practice
 	#Wheel factorization, which uses a cyclic set of gaps between potential primes to greatly
 	#reduce the number of trial divisions.
 	#uses a 2,3,5-wheel
 
-	#print("Running factorise("+str(N)+").."	
+	#print("Running factorise_235wheel("+str(N)+").."	
 
 	#Create lists to hold prime factors of N and corresponding powers
 	factors = []					#O(1)		
@@ -265,7 +266,7 @@ if __name__=='__main__':
 	#return a	
 	#ep=result[0]
 	
-#	factors = factorise(ep)	
+#	factors = factorise_235wheel(ep)	
 #	result2 = calc_primefactors_powers(factors, ep)
 	#return prime_factors, powers, c_calc_powers		
 #	prime_factors = result2[0]
