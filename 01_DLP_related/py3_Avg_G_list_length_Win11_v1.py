@@ -8,8 +8,8 @@
 import sys
 import math
 from pathlib import Path
-import gmpy2
 
+#import gmpy2
 #import os
 #import itertools
 #import csv
@@ -75,7 +75,7 @@ def main():
 	data_for_append = []
  
 	if is_primitive_root(g, p):
-		print("g is a primitive root mod p!")
+		print("g is a primitive root mod p! Hence G_list is all numbers from 1 to p-1")
 		sys.exit()
 
 	if g < p:
