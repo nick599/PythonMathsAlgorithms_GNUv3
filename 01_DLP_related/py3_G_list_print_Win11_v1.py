@@ -74,8 +74,7 @@ def main():
 	data_for_append = []
 
 	if g < p:
-		if isprime(p) == True:
-			#if g != p:				
+		if isprime(p) == True:				
 			#Want to calculate and store group G				
 			print("Calculating G_list..")
 			G_list = []	
@@ -143,10 +142,12 @@ def main():
 	
 
 def isprime(p):		
-	#this checks for divisibility by factors upto sqrt(p)
+	#checks for divisibility by factors upto sqrt(p)
 	#likely to be O(sqrt(n))
 	
 	#print("Running isprime(",str(p),").."
+	print("len(",p,") is",len(p))
+
 	# www.rookieslab.com/posts/fastest-way-to-check-if-a-number-is-prime-or-not
 	if p==1:
 		return False	

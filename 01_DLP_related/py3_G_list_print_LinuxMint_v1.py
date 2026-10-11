@@ -34,7 +34,7 @@ def main():
 	
 	print('What is g?')
 	g_initial = input()
-	if g_initial.isdigit() is False:
+	if not (g_initial.isdigit() and int(g_initial) > 0):
 		print('You have not entered a positive integer for g. g is: '+str(g_initial)+'. Please reenter.')
 		sys.exit()
 
@@ -43,7 +43,7 @@ def main():
 
 	print('What is p?')
 	p_initial = input()
-	if p_initial.isdigit() is False:
+	if not (p_initial.isdigit() and int(p_initial) > 0):
 		print('You have not entered a positive integer for p. p is: '+str(p_initial)+'. Please reenter.')
 		sys.exit()
 
@@ -61,17 +61,32 @@ def main():
 	data_for_append = []
 
 	if g < p:
-		if isprime(p) == True:
-			#if g != p:				
+		if isprime(p) == True:			
 			#Want to calculate and store group G				
 			#print("Calculating G_list..")
 			G_list = []				
+			
 			for number in range(1, p):
-				a = pow(g,number,p)
-				if a not in G_list:					
-					G_list.append(a)
-				else:
-					break
+				G_list.append(current_power)
+
+				# 2. Optional status check
+				if number % 100000000 == 0:
+        				print(f"exponent is now: {number}")   
+	
+				# 3. Compute the next power efficiently in O(1) time
+				current_power = (current_power * g) % p
+
+				# 4. Fast termination: Cyclic groups always loop back to g^1 (or 1 if started at g^0)
+				if current_power == g % p:
+       					break
+
+			#for number in range(1, p):
+			#	a = pow(g,number,p)
+			#	if a not in G_list:					
+			#		G_list.append(a)
+			#	else:
+			#		break
+
 			G_list.sort()
 			print("G_list:",G_list)
 			for element in G_list:			
@@ -89,9 +104,11 @@ def main():
 def isprime(p):		
 	#checks for divisibility by factors upto sqrt(p)
 	#likely to be O(sqrt(n))
+
+	#print("Running isprime(",str(p),").."
 	print("len(",p,") is",len(p))
-	print("Running isprime(",str(p),").."
-	# www.rookieslab.com/posts/fastest-way-to-check-if-a-number-is-prime-or-not
+	
+	#www.rookieslab.com/posts/fastest-way-to-check-if-a-number-is-prime-or-not
 	if p==1:
 		return False	
 		
@@ -101,10 +118,10 @@ def isprime(p):
 			return False
 		i += 1
 
+	print("p is prime!")
 	return True
 
 def csvfile_store_primes(csv_filename_var):
-
 	#print 'Running generator..'
 	with open(csv_filename_var,'r') as csvfile:
 		# Strip quotes, eol chars etc, and convert strings to integers
@@ -126,9 +143,7 @@ def txtfile_append(data,filepath):
 		txtfile.write(bytes(data,'UTF'))
 		txtfile.close()	
 
-	
 def size_input_check(input_number):
-
 	#if size of number >= 2*10^8 then return message about memory & exit
 	if input_number > 2 * pow(10,8):
 		print("Number to attempt to factorise is too large for this program. Try a number <= 2x10^8. Exiting to avoid memory issues..")
