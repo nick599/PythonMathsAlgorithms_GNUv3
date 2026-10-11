@@ -3,26 +3,79 @@
 #Programmed & tested in Python 3,14 only
 #This program creates a list of Beta-Smooth numbers in CSV format with comma delimiter for all primes upto N inclusive based on an input file presuming containing files of length N.
 #It has been tested on Linux Mint v3.19 x64.
-#Using Lists instead of sets for storage to minimise memory usage
+#Using lists instead of sets for storage to minimise memory usage
 
 import sys
 #import math
 import csv
-import os.path
+from pathlib import Path
 
-print("Copyright Nick Prowse 2018. Code Licenced under GNU GPL v3.")
-print("Version 3. 19/05/2018.")
+print("Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.")
+print("Version 3.1. 10/10/2026.")
 print("Programmed & tested in Python 3.14 only.")
 print("This program creates a list of Beta-smooth numbers in CSV format with comma delimiter for all primes upto N inclusive based on an input file presuming containing files of length N.")
-print("It has been tested on Linux Mint v3.19 x64.")
-#print("Using Lists instead of sets for storage to minimise memory usage.")
+print("It has been tested on Windows 11 Home x64.")
+#print("Using lists instead of sets for storage to minimise memory usage.")
 print("---------------------------------------------------------------------")
 
-version = 3
+version = "v3_1"
 
-desktop_path = "/home/mint/Desktop/"
-Primes_filename = "primes_upto_10000.csv"
-Primes_filepath = desktop_path + Primes_filename	
+python_version = sys.version
+print("python_version is:",python_version)
+
+home_dir = Path.home()
+desktop_dir = Path.home() / "Desktop"
+#repo_dir = "\Git_Repos\PythonMathsAlgorithms_GNUv3\"
+
+# 1. Get the absolute path of the executing script
+SCRIPT_PATH = Path(__file__).resolve()
+
+# 2. Navigate up to the repository root directory
+# (If script is in repo/src/script.py, .parent is 'src', .parent.parent is 'repo')
+REPO_ROOT = SCRIPT_PATH.parent.parent.parent
+print(f"Repository Root: {REPO_ROOT}")
+
+#print("---------------------------------------------------------------------")
+
+#PRIMES_PATH = REPO_ROOT.child
+#print(f"Primes Root: {PRIMES_PATH}")
+
+primes_folders = [p for p in REPO_ROOT.rglob("*Primes_upto_N_files") if p.is_dir()]
+#print(f"Primes folders: {primes_folders}")
+
+#print("---------------------------------------------------------------------")
+
+primes_folder = primes_folders[0]
+print(f"Primes folder chosen: {primes_folder}")
+
+#print("---------------------------------------------------------------------")
+
+All_Primes_upto_N_folders = [p for p in primes_folder.rglob("*All_Primes_upto_N") if p.is_dir()]
+#print(f"All_Primes_upto_N_folder: {All_Primes_upto_N_folders}")
+
+#print("---------------------------------------------------------------------")
+
+All_Primes_upto_N_folder = All_Primes_upto_N_folders[0]
+print(f"All_Primes_upto_N_folder chosen: {All_Primes_upto_N_folder}")
+
+#print("---------------------------------------------------------------------")
+
+primes_files = list(All_Primes_upto_N_folder.glob("*.csv"))
+#print(f"primes_files: {primes_files}")
+
+#print("---------------------------------------------------------------------")
+
+primes_file = primes_files[0]
+#print(f"Primes file chosen: {primes_file}")
+
+#Primes_path = home_dir + repo_path + "Primes_upto_N_files\"
+#Primes_filename = "primes_upto_100000.csv"
+#Primes_filepath = Primes_path + Primes_filename
+	
+Primes_filepath = All_Primes_upto_N_folder / "primes_upto_100000.csv"
+print(f"Primes_filepath: {Primes_filepath}")
+
+print("---------------------------------------------------------------------")
 
 def main():
 	print("What is the largest number (N) you want to go upto for primes to create the B-Smooth numbers list?")	
@@ -48,7 +101,7 @@ def main():
 		sys.exit()
 
 	Beta_Smooth_filename = "Beta_Smooth_upto_"+str(N)+"_"+str(version)+".csv"
-	Beta_Smooth_filepath = desktop_path + Beta_Smooth_filename
+	Beta_Smooth_filepath = desktop_dir / Beta_Smooth_filename
 	#print 'First 10 primes are: '+str(primes[0:10])
 	#print 'Last 10 primes are: '+str(primes[-10:])
 
@@ -83,10 +136,10 @@ def main():
 			sys.exit()
 
 	if not beta_index:
-		print("beta_index not found! Exiting..")
+		print("beta_index not found! B-Smooth list not created. Exiting..")
 		sys.exit()
-	else:
-		print("beta_index:",beta_index)
+	#else:
+		#print("beta_index:",beta_index)
 	
 	pminus1_Beta_Smooth_primes = []
 	#data = "primes_pminus1_"+str(beta)+"_Smooth_upto_"+str(N)+"_v"+str(version)+".csv\n---------------------------------\n"
@@ -100,18 +153,19 @@ def main():
 				#pminus1 is Beta-Smooth				
 				pminus1_Beta_Smooth_primes.append(prime)
 				#csvfile_append(prime,Beta_Smooth_filepath)
-				print(prime," added to primes_pminus1_Beta_Smooth_primes")
+				#print(prime," added to primes_pminus1_Beta_Smooth_primes")
 			#input("Waiting for user..")
 
 	#SG_prime_primes = result[0]
 	
-	print("type(pminus1_Beta_Smooth_primes):",type(pminus1_Beta_Smooth_primes))
+	#print("type(pminus1_Beta_Smooth_primes):",type(pminus1_Beta_Smooth_primes))
 
-	print('len pminus1_Beta_smooth_primes is:',len(pminus1_Beta_Smooth_primes))
-	print('First 10 pminus1_Beta_smooth_primes are:',pminus1_Beta_Smooth_primes[0:10])
-	print('Last 10 pminus1_Beta_smooth_primes are:',pminus1_Beta_Smooth_primes[-10:])
+	#print('len pminus1_Beta_smooth_primes is:',len(pminus1_Beta_Smooth_primes))
+	#print('First 10 pminus1_Beta_smooth_primes are:',pminus1_Beta_Smooth_primes[0:10])
+	#print('Last 10 pminus1_Beta_smooth_primes are:',pminus1_Beta_Smooth_primes[-10:])
 
-	csvfile_create(pminus1_Beta_Smooth_primes, Beta_Smooth_filepath)
+	#print("Create B-Smooth Primes csv...")
+	#csvfile_create(pminus1_Beta_Smooth_primes, Beta_Smooth_filepath)
 
 	#next_mem_usage_Kb = round(float(result[1])/ 1024, 1)
 	#sieve_mem_usage_Kb = round(float(result[2]) / 1024, 1)
@@ -120,15 +174,25 @@ def main():
 	#isprime_mem_usage_Kb = round(float(result[5]) / 1024, 1)
 	#primes = result[6]
 	
+	#print("---------------------------------------------------------------------")
 	print("Running checks on Beta-Smooth file ..")
+
 	#Check if primefile already exists.
-	if os.path.exists(Beta_Smooth_filepath) is True: 
+	
+	# Convert filepath to a Path object (do this where the variable is defined)
+	beta_smooth_path = Path(Beta_Smooth_filepath)
+
+	#if os.path.exists(Beta_Smooth_filepath) is True: 
+	if beta_smooth_path.exists():
 		print("Beta-smooth file already exists in that location. Existing file will be deleted before new one is created.")
-		os.remove(Beta_Smooth_filepath)
-		
-	print("Now creating file for Beta-Smooth numbers upto ",N)		
+		#os.remove(Beta_Smooth_filepath)
+		beta_smooth_path.unlink()
+
+	print("Now creating file for Beta-Smooth numbers upto",N)		
 	csvfile_create(pminus1_Beta_Smooth_primes, Beta_Smooth_filepath)
-	print(Beta_Smooth_filename," created.")
+	print(Beta_Smooth_filename,"created in",Beta_Smooth_filepath)
+
+	print("---------------------------------------------------------------------")
 
 	#next_mem_usage = sys.getsizeof(next)
 	#sieve_mem_usage = sys.getsizeof(sieve)
@@ -224,7 +288,8 @@ def factorise(N):
 
 	return factors
 
-def csvfile_store_primes(csv_filename_var):		### Assumming O(n+len(z1)+1) ### 
+def csvfile_store_primes(csv_filename_var):		
+	### Assumming O(n+len(z1)+1) ### 
 		
 	#print('Importing primes from csv file..')
 	with open(csv_filename_var,'r') as csvfile:
@@ -232,16 +297,17 @@ def csvfile_store_primes(csv_filename_var):		### Assumming O(n+len(z1)+1) ###
 		#Use generator to getse) number of primes to use in prime file..
 		#print 'Running generator..'
 		z1=(int(x) for row in csv.reader(csvfile) for x in row)			#O(n) - Potentially y rows and x items in each row, 
-											# however only 1 row in csvfile being used. Hence x*y=x items to store
+	# however only 1 row in csvfile being used. Hence x*y=x items to store
 		primes=list(z1)								#O(len(z1))
-		csvfile.close()								#1 operation
+		#csvfile.close()								#1 operation
 	return primes
 
 def csvfile_create(data,filepath):
-	print("data:",data)
+	#print("data:",data)
 
 	#create csv file using data
-	with open(filepath,'wb') as csvfile:
+	#with open(filepath,'wb') as csvfile:
+	with open(filepath, 'w', newline='', encoding='utf-8') as csvfile:
 		wr = csv.writer(csvfile, delimiter=',',quoting=csv.QUOTE_ALL)
 		wr.writerow(data)		
 		csvfile.close()
