@@ -7,6 +7,7 @@
 
 #py3 files with factorisation algorithms
 import sys
+import os
 import math
 try
 	from pathlib import Path
@@ -16,9 +17,28 @@ import itertools
 import csv
 import time
 
+# Add the absolute path of the target folder(s) to Python's search path
+factorise_folder_path = os.path.abspath('/03_Components/01_Factorising')
+
+# 1. Get the path to the current directory (current_folder)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 2. Navigate up to the parent directory (parent_folder)
+parent_dir = os.path.dirname(current_dir)
+
+# 3. Construct the absolute path to the sibling subdirectory
+sibling_dir = os.path.join(parent_dir, '/01_Factorising')
+
+# 4. Append it to sys.path so Python can see it
+sys.path.append(sibling_dir)
+
+# 5. Import the file (without the .py extension)
 #py3 files with factorisation algorithms
+import 235_wheel_factorise_primefactors_powers_v5
+import Diff_of_Squares_v12_OnHold
+
+#Remainder TO DO!
 import TrialDivision
-import 235wheel
 import Pollards_rho
 import Pollards_p_minus_1
 import Williams_p_plus_1
