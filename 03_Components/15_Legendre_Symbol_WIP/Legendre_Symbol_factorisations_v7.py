@@ -1,22 +1,37 @@
-#Copyright Nick Prowse 2019. Code Licenced under GNU GPL v3.
-#Version 7. 31/08/2019.
-#Programmed & tested in Python 3.52 only
+#Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.
+#Version 8. 12/10/2026.
+#Programmed & tested in Python 3 only
 #This program works out the Legendre Symbol of two numbers g & p specified by user.
-#It has been tested on Linux Mint v3.19 x64
+#It has been tested on Windows 11 Home x64
 #Testing results .... of xxx in xxx seconds.
 
+#py3 files with factorisation algorithms
 import sys
 import math
-import os
+try
+	from pathlib import Path
+except:
+	import path
 import itertools
 import csv
 import time
 
-print("Copyright Nick Prowse 2019. Code Licenced under GNU GPL v3.")
-print("Version 7. 31/08/2019.")
-print("Programmed & tested in Python 3.52 only")
+#py3 files with factorisation algorithms
+import TrialDivision
+import 235wheel
+import Pollards_rho
+import Pollards_p_minus_1
+import Williams_p_plus_1
+import ECM
+import SIQS
+import MPQS
+import GNFS
+
+print("Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.")
+print("Version 8. 12/10/2026.")
+print("Programmed & tested in Python 3 only")
 print("This program works out the chinese remainder of two lists specified by user in ranges.")
-print("It has been tested on Linux Mint v3.19 x64")
+print("It has been tested on Windows 11 Home x64")
 print("Testing results .... of xxx in xxx seconds.")
 print("---------------------------------------------------------------------")
 	
@@ -55,7 +70,7 @@ def leg_s_g_p_new(g,p):
 			print("g=2 and p mod 8 = +-3")
 			legendre_symbol_g_p=-1
 	else:
-		#print("running factorise(",g,")")
+		#print("running factorise_powers(",g,")")
 		result=factorise_powers(g)
 		#return prime_factors, powers, round(c_calc_primefactors,8), round(c_calc_powers,8), round(total_calc_time,8)
 		prime_factors=result[0]
@@ -202,10 +217,92 @@ def factorise_powers(N):
 	#Call size_input_check() if want to stop program running for very large numbers 
 	#size_input_check()
 
-	result1 = factorise(N)
-	#return factors, c_factorisations
-	factors = result1[0]
-	c_factorisations = result1[1]
+	len_N = len(N)
+
+	if len_N <= 5
+		result1 = factorise_trialdivision(N)
+		#return factors, c_factorisations
+		factors = result1[0]
+		c_factorisations = result1[1]
+
+	elif 5 < len_N <= 10
+		result1 = factorise_235wheel(N)
+		#return factors, c_factorisations
+		factors = result1[0]
+		c_factorisations = result1[1]
+
+	elif 20 < len_N <= 30: #Typical according to Google Gemini
+		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits).
+		result1 = factorise_pollards_rho(N)
+		#return factors, c_factorisations
+		factors = result1[0]
+		c_factorisations = result1[1]
+
+	elif 30 < len_N <= 40: #Typical according to Google Gemini
+		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits) before handing the remaining composite over to ECM.
+		result1 = factorise_pollards_rho(N)
+		#return factors, c_factorisations
+		factors = result1[0]
+		c_factorisations = result1[1]
+
+		result2 = factorise_ECM(N)
+		#return factors, c_factorisations
+		factors = result2[0]
+		c_factorisations = result2[1]
+
+	elif 40 < len_N <= 50: #Self Initializing Quadratic SIeve (SIQS / MPQS)
+		#"Self-Initializing Quadratic Sieve (SIQS / MPQS). This is the lower bound where the Quadratic Sieve begins to outpace ECM for tough semiprimes with equally sized factors"
+		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits) before handing the remaining composite over to SIQS.
+		result1 = factorise_pollards_rho(N)
+		#return factors, c_factorisations
+		factors = result1[0]
+		c_factorisations = result1[1]
+
+		result2 = factorise_SIQS(N)
+		#return factors, c_factorisations
+		factors = result2[0]
+		c_factorisations = result2[1]
+
+		result3 = factorise_MPQS(N)
+		#return factors, c_factorisations
+		factors = result3[0]
+		c_factorisations = result3[1]
+
+	elif 50 < len_N <= 100: #QS dominance
+		#Includes variants MPQS and SIQS
+
+		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits) before handing the remaining composite over to SIQS.
+		result1 = factorise_pollards_rho(N)
+		#return factors, c_factorisations
+		factors = result1[0]
+		c_factorisations = result1[1]
+
+		result2 = factorise_SIQS(N)
+		#return factors, c_factorisations
+		factors = result2[0]
+		c_factorisations = result2[1]
+
+		result3 = factorise_MPQS(N)
+		#return factors, c_factorisations
+		factors = result3[0]
+		c_factorisations = result3[1]
+
+	elif 100 < len_N <= 110: #NFS - SIQS to GNFS transition zone
+		result1 = factorise_SIQS(N)
+		#return factors, c_factorisations
+		factors = result1[0]
+		c_factorisations = result1[1]
+
+		result2 = factorise_GNFS(N)
+		#return factors, c_factorisations
+		factors = result2[0]
+		c_factorisations = result2[1]
+
+	elif 110 < len_N: #NFS - GNFS era
+		result1 = factorise_GNFS(N)
+		#return factors, c_factorisations
+		factors = result1[0]
+		c_factorisations = result1[1]
 
 	#print("factors are:",factors)
 	#print("time for factorisation is:",round(c_factorisations,8))
@@ -225,7 +322,7 @@ def factorise_powers(N):
 
 	return prime_factors, powers, round(c_calc_primefactors,8), round(c_calc_powers,8), round(total_calc_time,8)
 
-def factorise(N):		
+def factorise_235wheel(N):		
 	#based on code on https://stackoverflow.com/questions/16996217/prime-factorization-list/
 	#Author states this is is O(sqrt(n))) and 2 to 3 times faster than trial division in practice
 	#Wheel factorization, which uses a cyclic set of gaps between potential primes to greatly
@@ -270,6 +367,34 @@ def factorise(N):
 	return factors, c_factorisations
 	#return prime_factors, powers, remainder, c_lists, c_factorisations
 	#return prime_factors, powers, remainder, c_lists, c_factorisations, c_pps, c_nrem
+
+
+def factorise_trialdivision(N):
+
+
+
+def factorise_pollards_rho(N):
+
+
+
+def factorise_williams_p+1(N):
+
+
+
+def factorise_ECM(N):
+
+
+
+def factorise_SIQS(N):
+
+
+
+def factorise_MPQS(N):
+
+
+
+def factorise_GNFS(N):
+
 
 def calc_primefactors_powers(N, factors):
 	#print("------------------"

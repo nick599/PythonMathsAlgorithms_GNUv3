@@ -95,11 +95,24 @@ def relation(N):
 	
 	#for a = initial_a to 2*initial_a:
 	for a in range(initial_a, 2*initial_a+1):
-		print("a is now:",a)
-		ans=F_T(a,N)
-		print("F_T(a,N) to append:",ans)
+		#print("a is now:",a)
+		#ans=F_T(a,N)
+	
+		#return output of F_T(T,N) for inputs T and N
+		#print("Inputs to F_T are T:",T,"N:",N)
+		#exp_X = math.exp(X)
+		#print("exp_X is:",exp_X)
+		#ln_X = math.log(X)
+		#sqrt_X = math.sqrt(X)
+	
+		ans = a**2 - N
+
+		#print("F_T for T:",T," and N:",N," is:",N)
+		#print("F_T(a,N) to append:",ans)
+
 		F_list.append(ans)
-		input("Waiting for user ...")
+		
+	#input("Waiting for user ...")
 
 	print("F_list is:",F_list)
 
@@ -233,8 +246,10 @@ def elimination(c_i, a_i, primes_upto_50):
 
 	
 	#There are much more efficient methods than Gaussian elimination for dealing with sparse matricies over F_2
+	
 	#Example 1:
 	#David Coppersmith - Solving homogeneous linear equations over GF(2) via Block Wiedermann algorithm, Math. Comp. , 62(205):333-250, 1994.
+	
 	#Example 2: 
 	#B. A. LaMacchia and A. M. Odlyzko - Solving large sparse linear systems over finite fields - Crypto '90 (1990), 
 	#Lecture Notes in Comp Sci, Springer, Berlin, 1990
@@ -280,7 +295,6 @@ def gcd_computation(a_i, b, N):
 
 def L_of_X(X):
 	#return output of L(X) for input X
-	#
 
 	#print("Input to L_of_X is:",X)
 
@@ -410,6 +424,7 @@ def calc_primefactors_powers(N, factors):
 			#factor is not in fac_list
 			#add factor to prime_factors
 			prime_factors.append(factor)
+			
 			#print("Added "+str(factor)+" to prime_factors"
 			#print("prime_factors is: "+str(prime_factors)
 			#print str(factor)+" is NOT in fac_list"
