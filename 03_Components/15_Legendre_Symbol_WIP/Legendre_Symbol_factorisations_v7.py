@@ -9,7 +9,7 @@
 import sys
 import os
 import math
-try
+try:
 	from pathlib import Path
 except:
 	import path
@@ -21,24 +21,29 @@ import time
 factorise_folder_path = os.path.abspath('/03_Components/01_Factorising')
 
 # 1. Get the path to the current directory (current_folder)
-current_dir = os.path.dirname(os.path.abspath(__file__))
+Current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # 2. Navigate up to the parent directory (parent_folder)
-parent_dir = os.path.dirname(current_dir)
+Parent_dir = os.path.dirname(Current_dir)
+print("Parent_dir:",Parent_dir)
 
-# 3. Construct the absolute path to the sibling subdirectory
-sibling_dir = os.path.join(parent_dir, '/01_Factorising')
+# 3. Construct the absolute path to subdirectories
+Factorising_dir = os.path.join(Parent_dir, '/01_Factorising')
+print("Factorising_dir:",Factorising_dir)
+PrimalityTesting_dir = os.path.join(Parent_dir, '/05_PrimalityTesting')
+print("PrimalityTesting_dir:",PrimalityTesting_dir)
 
-# 4. Append it to sys.path so Python can see it
-sys.path.append(sibling_dir)
+# 4. Append them to sys.path so Python can see it
+sys.path.append(Factorising_dir)
+sys.path.append(PrimalityTesting_dir)
 
 # 5. Import the file (without the .py extension)
 #py3 files with factorisation algorithms
-import 235_wheel_factorise_primefactors_powers_v5
+import w235_primefactors_powers_v5
 import Diff_of_Squares_v12_OnHold
 
 #Remainder TO DO!
-import TrialDivision
+import TrialDivision ###
 import Pollards_rho
 import Pollards_p_minus_1
 import Williams_p_plus_1
@@ -46,6 +51,10 @@ import ECM
 import SIQS
 import MPQS
 import GNFS
+
+#Primality testing
+import isprime_trialdivision_v3
+import AKS_primality_test_v11
 
 print("Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.")
 print("Version 8. 12/10/2026.")
@@ -239,13 +248,13 @@ def factorise_powers(N):
 
 	len_N = len(N)
 
-	if len_N <= 5
+	if len_N <= 5:
 		result1 = factorise_trialdivision(N)
 		#return factors, c_factorisations
 		factors = result1[0]
 		c_factorisations = result1[1]
 
-	elif 5 < len_N <= 10
+	elif 5 < len_N <= 10:
 		result1 = factorise_235wheel(N)
 		#return factors, c_factorisations
 		factors = result1[0]
@@ -389,32 +398,75 @@ def factorise_235wheel(N):
 	#return prime_factors, powers, remainder, c_lists, c_factorisations, c_pps, c_nrem
 
 
-def factorise_trialdivision(N):
+#def factorise_trialdivision(N):
 
 
 
-def factorise_pollards_rho(N):
+#def factorise_pollards_rho(N):
 
 
 
-def factorise_williams_p+1(N):
+#def factorise_williams_p+1(N):
 
 
 
-def factorise_ECM(N):
+#def factorise_ECM(N):
 
 
 
-def factorise_SIQS(N):
+#def factorise_SIQS(N):
 
 
 
-def factorise_MPQS(N):
+#def factorise_MPQS(N):
 
 
 
-def factorise_GNFS(N):
+#def factorise_GNFS(N):
 
+
+
+def is_primitive_root(g, p):
+	#Efficiently checks if g is a primitive root modulo p.
+	#Time Complexity: O(sqrt(p) + log(p)) due to factorization.
+	if g <= 1 or g >= p:
+    		return False
+
+	#Step 1: Get the unique prime factors of phi(p) which is p-1
+	totient = p - 1
+	prime_factors = get_unique_prime_factors(totient)
+	print("prime factors of p-1:",prime_factors)
+
+	# Step 2: Test powers
+	for q in prime_factors:
+		test_exponent = totient // q
+		if pow(g, test_exponent, p) == 1:
+			return False  # Failed the test; g loops too early
+            
+	return True  # Passed all tests; g is a primitive root
+
+def get_unique_prime_factors(n):
+    #Finds all unique prime factors of a number n
+    factors = set()
+    # Check factor 2
+    if n % 2 == 0:
+        factors.add(2)
+        while n % 2 == 0:
+            n //= 2
+            
+    #Check odd factors up to sqrt(n)
+    i = 3
+    while i * i <= n:
+        if n % i == 0:
+            factors.add(i)
+            while n % i == 0:
+                n //= i
+        i += 2
+        
+    #If n is still greater than 1, then n itself is prime
+    if n > 1:
+        factors.add(n)
+    return factors
 
 def calc_primefactors_powers(N, factors):
 	#print("------------------"
