@@ -26,16 +26,22 @@ Current_dir = os.path.dirname(os.path.abspath(__file__))
 # 2. Navigate up to the parent directory (parent_folder)
 Parent_dir = os.path.dirname(Current_dir)
 print("Parent_dir:",Parent_dir)
+Parent_dir = Path(Parent_dir)
 
 # 3. Construct the absolute path to subdirectories
-Factorising_dir = os.path.join(Parent_dir, '/01_Factorising')
+#Factorising_dir = os.path.join(Parent_dir, '/01_Factorising')
+Factorising_dir = Parent_dir / "01_Factorising"
 print("Factorising_dir:",Factorising_dir)
-PrimalityTesting_dir = os.path.join(Parent_dir, '/05_PrimalityTesting')
+#sys.path.append(str(Factorising_dir))
+
+#PrimalityTesting_dir = os.path.join(Parent_dir, '/05_PrimalityTesting')
+PrimalityTesting_dir = Parent_dir / "05_PrimalityTesting"
 print("PrimalityTesting_dir:",PrimalityTesting_dir)
+#sys.path.append(str(PrimalityTesting_dir))
 
 # 4. Append them to sys.path so Python can see it
-sys.path.append(Factorising_dir)
-sys.path.append(PrimalityTesting_dir)
+sys.path.append(str(Factorising_dir))
+sys.path.append(str(PrimalityTesting_dir))
 
 # 5. Import the file (without the .py extension)
 #py3 files with factorisation algorithms
@@ -43,18 +49,18 @@ import w235_primefactors_powers_v5
 import Diff_of_Squares_v12_OnHold
 
 #Remainder TO DO!
-import TrialDivision ###
-import Pollards_rho
-import Pollards_p_minus_1
-import Williams_p_plus_1
-import ECM
-import SIQS
-import MPQS
-import GNFS
+#import TrialDivision ###
+#import Pollards_rho
+#import Pollards_p_minus_1
+#import Williams_p_plus_1
+#import ECM
+#import SIQS
+#import MPQS
+#import GNFS
 
 #Primality testing
 import isprime_trialdivision_v3
-import AKS_primality_test_v11
+#import AKS_primality_test_v12_Win11
 
 print("Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.")
 print("Version 8. 12/10/2026.")
@@ -99,7 +105,7 @@ def leg_s_g_p_new(g,p):
 			print("g=2 and p mod 8 = +-3")
 			legendre_symbol_g_p=-1
 	else:
-		#print("running factorise_powers(",g,")")
+		print("running factorise_powers(",g,")")
 		result=factorise_powers(g)
 		#return prime_factors, powers, round(c_calc_primefactors,8), round(c_calc_powers,8), round(total_calc_time,8)
 		prime_factors=result[0]
@@ -246,92 +252,93 @@ def factorise_powers(N):
 	#Call size_input_check() if want to stop program running for very large numbers 
 	#size_input_check()
 
-	len_N = len(N)
+	len_N = len(str(N))
 
-	if len_N <= 5:
-		result1 = factorise_trialdivision(N)
+	#if len_N <= 5:
+	#	result1 = w235_primefactors_powers_v5.factorise_trialdivision(N)
+	#	#return factors, c_factorisations
+	#	factors = result1[0]
+	#	c_factorisations = result1[1]
+
+	if 5 < len_N <= 10:
+	#elif 5 < len_N <= 10:
+		result1 = w235_primefactors_powers_v5.factorise_235wheel(N)
 		#return factors, c_factorisations
 		factors = result1[0]
 		c_factorisations = result1[1]
 
-	elif 5 < len_N <= 10:
-		result1 = factorise_235wheel(N)
-		#return factors, c_factorisations
-		factors = result1[0]
-		c_factorisations = result1[1]
+	#elif 20 < len_N <= 30: #Typical according to Google Gemini
+	#	#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits).
+	#	result1 = factorise_pollards_rho(N)
+	#	#return factors, c_factorisations
+	#	factors = result1[0]
+	#	c_factorisations = result1[1]
 
-	elif 20 < len_N <= 30: #Typical according to Google Gemini
-		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits).
-		result1 = factorise_pollards_rho(N)
-		#return factors, c_factorisations
-		factors = result1[0]
-		c_factorisations = result1[1]
-
-	elif 30 < len_N <= 40: #Typical according to Google Gemini
+	#elif 30 < len_N <= 40: #Typical according to Google Gemini
 		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits) before handing the remaining composite over to ECM.
-		result1 = factorise_pollards_rho(N)
-		#return factors, c_factorisations
-		factors = result1[0]
-		c_factorisations = result1[1]
+	#	result1 = factorise_pollards_rho(N)
+	#	#return factors, c_factorisations
+	#	factors = result1[0]
+	#	c_factorisations = result1[1]
 
-		result2 = factorise_ECM(N)
-		#return factors, c_factorisations
-		factors = result2[0]
-		c_factorisations = result2[1]
+	#	result2 = factorise_ECM(N)
+	#	#return factors, c_factorisations
+	#	factors = result2[0]
+	#	c_factorisations = result2[1]
 
-	elif 40 < len_N <= 50: #Self Initializing Quadratic SIeve (SIQS / MPQS)
+	#elif 40 < len_N <= 50: #Self Initializing Quadratic SIeve (SIQS / MPQS)
 		#"Self-Initializing Quadratic Sieve (SIQS / MPQS). This is the lower bound where the Quadratic Sieve begins to outpace ECM for tough semiprimes with equally sized factors"
 		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits) before handing the remaining composite over to SIQS.
-		result1 = factorise_pollards_rho(N)
+	#	result1 = factorise_pollards_rho(N)
 		#return factors, c_factorisations
-		factors = result1[0]
-		c_factorisations = result1[1]
+	#	factors = result1[0]
+	#	c_factorisations = result1[1]
 
-		result2 = factorise_SIQS(N)
+	#	result2 = factorise_SIQS(N)
 		#return factors, c_factorisations
-		factors = result2[0]
-		c_factorisations = result2[1]
+	#	factors = result2[0]
+	#	c_factorisations = result2[1]
 
-		result3 = factorise_MPQS(N)
+	#	result3 = factorise_MPQS(N)
 		#return factors, c_factorisations
-		factors = result3[0]
-		c_factorisations = result3[1]
+	#	factors = result3[0]
+	#	c_factorisations = result3[1]
 
-	elif 50 < len_N <= 100: #QS dominance
+	#elif 50 < len_N <= 100: #QS dominance
 		#Includes variants MPQS and SIQS
 
 		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits) before handing the remaining composite over to SIQS.
-		result1 = factorise_pollards_rho(N)
+	#	result1 = factorise_pollards_rho(N)
 		#return factors, c_factorisations
-		factors = result1[0]
-		c_factorisations = result1[1]
+	#	factors = result1[0]
+	#	c_factorisations = result1[1]
 
-		result2 = factorise_SIQS(N)
+	#	result2 = factorise_SIQS(N)
 		#return factors, c_factorisations
-		factors = result2[0]
-		c_factorisations = result2[1]
+	#	factors = result2[0]
+	#	c_factorisations = result2[1]
 
-		result3 = factorise_MPQS(N)
+	#	result3 = factorise_MPQS(N)
 		#return factors, c_factorisations
-		factors = result3[0]
-		c_factorisations = result3[1]
+	#	factors = result3[0]
+	#	c_factorisations = result3[1]
 
-	elif 100 < len_N <= 110: #NFS - SIQS to GNFS transition zone
-		result1 = factorise_SIQS(N)
+	#elif 100 < len_N <= 110: #NFS - SIQS to GNFS transition zone
+	#	result1 = factorise_SIQS(N)
 		#return factors, c_factorisations
-		factors = result1[0]
-		c_factorisations = result1[1]
+	#	factors = result1[0]
+	#	c_factorisations = result1[1]
 
-		result2 = factorise_GNFS(N)
+	#	result2 = factorise_GNFS(N)
 		#return factors, c_factorisations
-		factors = result2[0]
-		c_factorisations = result2[1]
+	#	factors = result2[0]
+	#	c_factorisations = result2[1]
 
-	elif 110 < len_N: #NFS - GNFS era
-		result1 = factorise_GNFS(N)
+	#elif 110 < len_N: #NFS - GNFS era
+	#	result1 = factorise_GNFS(N)
 		#return factors, c_factorisations
-		factors = result1[0]
-		c_factorisations = result1[1]
+	#	factors = result1[0]
+	#	c_factorisations = result1[1]
 
 	#print("factors are:",factors)
 	#print("time for factorisation is:",round(c_factorisations,8))

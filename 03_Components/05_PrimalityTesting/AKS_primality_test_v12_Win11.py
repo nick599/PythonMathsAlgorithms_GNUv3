@@ -1,5 +1,5 @@
-#Copyright Nick Prowse 2017. Code Licenced under GNU GPL v3.
-#Version 11. 07/04/2018.
+#Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.
+#Version 11. 14/10/2026.
 #Programmed & tested in Python 2.76 only
 #This program attemps to check the primality of a prime via the AKS primality test. 
 #Results ...
@@ -20,16 +20,16 @@ import os
 #import csv
 import time
 
-print "Copyright Nick Prowse 2017. Code Licenced under GNU GPL v3."
-print "Version 11. 07/04/2018."
-print "Programmed & tested in python 2.76 only."
-print "---------------------------------------------------------------------"
-print "This program attemps to check the primality of a prime via the AKS primality test."
-print "Results printed are three arrays ..."
-print "Prime list file should be a .CSV file with each prime separated by commas."
-print "Ensure that \"prime_list_path\" and \"prime_list_filename\" are edited for the location of prime list file used."
-print "It has been tested on Linux Mint v3.19 x64 using a prime list with primes upto 99,997 and was able to check a prime of xxx in xxx seconds."
-print "---------------------------------------------------------------------"
+print("Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.")
+print("Version 12. 14/10/2026.")
+print("Programmed & tested in python 3 only.")
+print("---------------------------------------------------------------------")
+print("This program attemps to check the primality of a prime via the AKS primality test.")
+print("Results printed are three arrays ...")
+print("Prime list file should be a .CSV file with each prime separated by commas.")
+print("Ensure that \"prime_list_path\" and \"prime_list_filename\" are edited for the location of prime list file used.")
+print("It has been tested on Windows 11 Home x64 using a prime list with primes upto 99,997 and was able to check a prime of xxx in xxx seconds.")
+print("---------------------------------------------------------------------")
 	
 def main():
 	#prime_list_path="/home/mint/Desktop/"			#O(1)
@@ -41,7 +41,7 @@ def main():
 
 	#print(sys.version_info)
 
-	print 'Enter prime to be tested: '			#O(1)
+	print('Enter prime to be tested:')			#O(1)
 	n_initial = raw_input()					#O(1)
 	if n_initial.isdigit() is False:			#O(1)
 		print('You have not entered a positive integer for n. n is: '+str(n_initial)+'. Please reenter.')
@@ -50,8 +50,8 @@ def main():
 	#now convert n_initial into a long:
 	n = long(n_initial)					#O(1)
 
-	print "---------------------"
-	print "n: "+str(n)
+	print ("---------------------")
+	print ("n:",str(n))
 
 	#define lists for different types of results
 	#answers_to_be_checked=[]				#O(???)
@@ -63,7 +63,7 @@ def main():
 	#return status - False for perfect power, True for not.
 
 	if perfect_power_result == False:
-		print "n is Composite"
+		print("n is Composite")
 
 	elif perfect_power_result == True:
 		#print "perfect_power_result is True"
@@ -78,7 +78,7 @@ def main():
 
 		if r_status == False:
 			#r not found!
-			print "r is not found for n !"
+			print("r is not found for n !")
 			sys.exit()
 		elif r_status == True:
 			#step 3 - for all 2 <= a <= min(r,n-1) check that a does not divide n.
@@ -98,14 +98,14 @@ def main():
 				#step 4 - check if n <=r - if true output "prime"
 				if n > r:
 					#step 5 - check if (x+a)**n congruence holds. If it doesn't output "n is composite"
-					print "n is: "+str(n)+", r is: "+str(r)
+					print("n is: ",str(n),", r is: ",str(r))
 					euler_phi_r_result = euler_phi_noprimesused(r)
 					#return count_k, status
 					ep = euler_phi_r_result[0]
 					ep_status = euler_phi_r_result[1]
 
 					if ep_status == False:
-						print "ep_status is False!"						
+						print("ep_status is False!")						
 						raw_input("Waiting for user..")
 
 					elif ep_status == True:
@@ -115,7 +115,7 @@ def main():
 						floor_sqrt_eulerphi_r_times_log_2_n = math.floor(sqrt_euler_phi_r * log_2_n)
 						#print "floor_sqrt_eulerphi_r_times_log_2_n is: "+str(floor_sqrt_eulerphi_r_times_log_2_n)
 						int_floor_sqrt_eulerphi_r_times_log_2_n = int(floor_sqrt_eulerphi_r_times_log_2_n)
-						print "int_floor_sqrt_eulerphi_r_times_log_2_n is: "+str(int_floor_sqrt_eulerphi_r_times_log_2_n)
+						print("int_floor_sqrt_eulerphi_r_times_log_2_n is:",str(int_floor_sqrt_eulerphi_r_times_log_2_n))
 							
 						#raw_input("What is x??")
 
@@ -127,50 +127,50 @@ def main():
 						elif n_status == False:
 							return "n is Composite"
 						else:
-							print "n_status is: "+str(n_status)
+							print("n_status is:",str(n_status))
 							sys.exit()
 					else:
-						print "n is: "+str(n)+", r is: "+str(r)
+						print("n is:",str(n),", r is:",str(r))
 						raw_input("Waiting for user..")
 				elif n <= r:
 					return "n is Prime"				
 				else:
-					print "n is: "+str(n)+", r is: "+str(r)
+					print("n is: "+str(n)+", r is: "+str(r))
 					raw_input("Waiting for user..")
 			else:
-				print "a_status is: "+str(a_status) 	#O(1)
+				print("a_status is:",str(a_status)) 	#O(1)
 				sys.exit()
 		else:
-			print "r_status is: "+str(r_status)	 	#O(1)
+			print("r_status:",str(r_status))	 	#O(1)
 			sys.exit()
 	else:
-		print "perfect_power_result is: "+str(perfect_power_result)
+		print("perfect_power_result: ",str(perfect_power_result))
 		sys.exit()
 
 def perfect_power_check_a_b(n):
 
 	#False for perfect power, True for not.
-	print "Running perfect_power_check_a_b(n).."	
+	print("Running perfect_power_check_a_b(",str(n),")..")	
 	a = math.sqrt(n)
 	if a - int(a):
-		print "Not perfect power: sqrt("+str(n)+") - int(sqrt("+str(n)+")): True: "+str(a - int(a))		
+		print("Not perfect power: sqrt(",str(n),") - int(sqrt(",str(n),")): True: ",str(a - int(a)))		
 		#print "a is: "+str(a)+", pow(a,2) is: "+str(pow(a,2))+", n is: "+str(n)		
 		#if pow(a,2) == n:
 		#	print "CHECK! pow(a,2) is: "+str(pow(a,2))+" == n, n is: "+str(n)+", a is: "+str(a)
 		#	sys.exit()
 		return True
 	else:
-		print "perfect power: a - int(a): False: "+str(a - int(a))
+		print("perfect power: a - int(a): False:",str(a - int(a)))
 		if pow(a,2) <> n:
-			print "CHECK! pow(a,2) is: "+str(pow(a,2))+" == n, n is: "+str(n)+", a is: "+str(a)
+			print("CHECK! pow(a,2) is: "+str(pow(a,2))+" == n, n is: "+str(n)+", a is: "+str(a))
 			sys.exit()
 
 		return False	#n is composite
 
 def perfect_power_check_a_b_old(n):
-	print "Running perfect_power_check_a_b_old("+str(n)+").."
+	print("Running perfect_power_check_a_b_old("+str(n)+")..")
 
-	print "n is:"+str(n)
+	print("n is:"+str(n))
 
 	#Worst: O(n + 7)	#Best: O(8)
 
@@ -178,9 +178,9 @@ def perfect_power_check_a_b_old(n):
 	b=1						#O(1)
 	status=False					#O(1)
 	while a < n:					#O(n)	#Worst: O(n**2+5n) 	#Best: 6 operations
-		print "a is:"+str(a)
+		print("a is:"+str(a))
 		if status== True:
-			print "Perfect square found!"			
+			print("Perfect square found!")			
 			break
 		elif status== False:
 			if a==1:			
@@ -194,24 +194,24 @@ def perfect_power_check_a_b_old(n):
 			int_flr_log_na = int(math.floor(log_na))
 			#print "int(math.floor(math.log("+str(n)+","+str(a)+"))) is: "+str(int_flr_log_na)
 			upper_bound = int_flr_log_na + 1
-			print "upper_bound is: "+str(upper_bound) 
+			print("upper_bound is: "+str(upper_bound)) 
 			for b in xrange(1, upper_bound):	#O(n)	
 				if pow(a,b) == n:					#O(2)	#Worst: O(6)
-					print "a: "+str(a)+", b: "+str(b)			#O(1)
+					print("a: "+str(a)+", b: "+str(b))			#O(1)
 					status=True						#O(1)
 					break							#O(1)
 			
 		else:
-			print "status: "+str(status)
+			print("status: "+str(status))
 		a = a + 1
 	return status
 
 def smallest_r(n , log_2_n_squared, log_2_n):
 	#find smallest r such that order_r(n) > log_2_n_squared
 	#if f and n are not coprime, then SKIP this r.
-	print "Running smallest_r("+str(n)+" , log_2_n_squared, log_2_n).."
-	print "log_2_n is: "+str(log_2_n)
-	print "log_2_n_squared is: "+str(log_2_n_squared)
+	print("Running smallest_r("+str(n)+" , log_2_n_squared, log_2_n)..")
+	print("log_2_n is: "+str(log_2_n))
+	print("log_2_n_squared is: "+str(log_2_n_squared))
 
 	#intialise r
 	r = 1
@@ -253,20 +253,20 @@ def smallest_r(n , log_2_n_squared, log_2_n):
 				if gcd(r,n) <> 1:
 					r = r + 1
 				else:
-					print "r found: "+str(r)
+					print("r found: "+str(r))
 					status = True				
 					return r, status		
 			else:
-				print "order_r_n: "+str(order_r_n)+", log_2_n_squared: "+str(log_2_n_squared)
+				print("order_r_n: "+str(order_r_n)+", log_2_n_squared: "+str(log_2_n_squared))
 				raw_input("Waiting for user..")
 		else:
-			print "order_r_n is: "+str(order_r_n)
+			print("order_r_n is: "+str(order_r_n))
 			raw_input("Waiting for user..")
 
 	if r == 1:
 		status = False				
 		return r, status
-		print "r not found!"
+		print("r not found!")
 
 def a_divide_n_check(n , min_r_n_minus_1):
 	#if a|n for some a s.t. 2 <= a <= min_r_n_minus_1 then output "n is composite"
@@ -275,7 +275,7 @@ def a_divide_n_check(n , min_r_n_minus_1):
 	status = False
 	for a in xrange(2, min_r_n_minus_1 + 1):
 		if n % a == 0:
-			print "n is composite!"
+			print("n is composite!")
 			status=True
 			a_value = a			
 			break
@@ -286,19 +286,19 @@ def x_plus_a_cong_check(n, r, int_floor_sqrt_eulerphi_r_times_log_2_n):
 	
 	#calc difference between n and r
 	diff_n_minus_r = n - r 	
-	print "n minus r is: "+str(diff_n_minus_r)
+	print("n minus r is: "+str(diff_n_minus_r))
 
 	#Step 1 - expand binomial (x+a)**n for n, and store result (result1), and print it.
 	#need formula for nCr coefficients! -> n! / r!*(n-r)! ???
 	#need formula for n!
 	bin_coeffs=[]	
-	print "Evaluating Bin_Coeffs for "+str(n)+".."
+	print("Evaluating Bin_Coeffs for "+str(n)+"..")
 	#for b in xrange(0, n + 1):	
 	result = Bin_Coeffs(n)
-	print "len of Bin_Coeffs("+str(n)+") is: "+str(len(result))
+	print("len of Bin_Coeffs("+str(n)+") is: "+str(len(result)))
 	#print "Bin_Coeffs("+str(n)+") is: "+str(result)
 	#bin_coeffs.append(result)
-	print "bin_coeffs for "+str(n)+" are: "+str(result)
+	print("bin_coeffs for "+str(n)+" are: "+str(result))
 	#raw_input("Waiting for user..")
 
 
@@ -318,14 +318,14 @@ def x_plus_a_cong_check(n, r, int_floor_sqrt_eulerphi_r_times_log_2_n):
 
 	#step 5 - take result3 mod(n), store it (result4), and print it.
 	bin_coeffs=[]	
-	print "Evaluating elements of bin_coeffs mod "+str(n)+".."
+	print("Evaluating elements of bin_coeffs mod "+str(n)+"..")
 	bin_coeffs_mod_n=[]
 	for number in bin_coeffs:	
 		index = bin_coeffs.index(number)		
 		number = number % n 
-		print "bin_coeff["+str(index)+"] is: "+str(number)
+		print("bin_coeff["+str(index)+"] is: "+str(number))
 		bin_coeffs_mod_n.append(number)
-	print "bin_coeffs for "+str(n)+" are: "+str(bin_coeffs)
+	print("bin_coeffs for "+str(n)+" are: "+str(bin_coeffs))
 	raw_input("Waiting for user..")
 
 
@@ -471,7 +471,7 @@ def check_prime(n):
 	
 def isprime(p):		#this is O(sqrt(n))
 	
-	print "Running isprime("+str(p)+").."
+	print("Running isprime("+str(p)+")..")
 	# www.rookieslab.com/posts/fastest-way-to-check-if-a-number-is-prime-or-not
 	if p==1:
 		return False	
@@ -486,7 +486,7 @@ def isprime(p):		#this is O(sqrt(n))
 
 def calc_modinverse(g, power, p):
 	#print "----------------"
-	print "Running calc_modinverse().."					#O(1)
+	print("Running calc_modinverse()..")					#O(1)
 	#print "g is: "+str(g)
 	#print "power is: "+str(power)
 	#raw_input("Waiting for user..")	
@@ -535,7 +535,7 @@ def factorise(N):
 	#reduce the number of trial divisions.
 	#uses a 2,3,5-wheel
 
-	print "Running factorise("+str(N)+").."	
+	print("Running factorise("+str(N)+")..")
 
 	#Create lists to hold prime factors of N and corresponding powers
 	#s_before_lists = time.clock()	
@@ -575,7 +575,7 @@ def factorise(N):
 def calc_powers(factors):
 	#Worst: O(n+13)	#Best: O(18)
 
-	print "Running calc_powers.."
+	print("Running calc_powers..")
 	#Now want to find max powers m for each factor in factors.
 	#can do this by counting unique factors			
 	prime_factors=[]					#O(1)

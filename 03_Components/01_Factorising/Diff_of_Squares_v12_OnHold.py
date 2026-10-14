@@ -6,7 +6,10 @@
 
 #import sys
 import math
-from fractions import gcd
+try:
+	from fractions import gcd
+except:
+	from math import gcd
 import csv
 #import os
 #import itertools

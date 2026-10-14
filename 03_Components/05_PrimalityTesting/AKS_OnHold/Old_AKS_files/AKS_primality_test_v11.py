@@ -66,7 +66,7 @@ def main():
 		print "n is Composite"
 
 	elif perfect_power_result == True:
-		#print "perfect_power_result is False"
+		#print "perfect_power_result is True"
 		#step 2 - find smallest r such that order_r(n) > [log_2(n)]**2
 		log_2_n = math.log(n,2)
 		log_2_n_squared = pow(log_2_n, 2)
@@ -92,30 +92,48 @@ def main():
 			a_status = a_divide_n_check_result[1]
 			#a_status = True for n is composite
 
-			if a_status == True:
-				#a not found!
-				print "a_status is True - a is: "+str(a)+", n is Composite!"
-				sys.exit()
-			elif a_status == False:
+			if a == 0:
+				#print "2 <= a <= "+str(min_r_n_minus_1)+" not found for a|"+str(n)+" !"
+
 				#step 4 - check if n <=r - if true output "prime"
-				if n <= r:
-					print "a_status is False and n<=r. n is Prime!"
-					sys.exit()
-				elif n > r:
+				if n > r:
 					#step 5 - check if (x+a)**n congruence holds. If it doesn't output "n is composite"
-					print "n is: "+str(r)+", r is: "+str(r)					
-					sqrt_euler_phi_r = math.sqrt(euler_phi(r))					
-					floor_sqrt_eulerphi_r_times_log_2_n = math.floor(sqrt_euler_phi_r * log_2_n)
-					x_plus_a_cong_check_result = x_plus_a_cong_check(n, r, a, floor_sqrt_eulerphi_r_times_log_2_n)
-					#return n_status 
-					n_status = x_plus_a_cong_check_result
-					if n_status == True:
-						return "n is Prime"
-					elif n_status == False:
-						return "n is Composite"
+					print "n is: "+str(n)+", r is: "+str(r)
+					euler_phi_r_result = euler_phi_noprimesused(r)
+					#return count_k, status
+					ep = euler_phi_r_result[0]
+					ep_status = euler_phi_r_result[1]
+
+					if ep_status == False:
+						print "ep_status is False!"						
+						raw_input("Waiting for user..")
+
+					elif ep_status == True:
+						#now want to calc floor[sqrt(eulerphi(r)) * log_2(n)]							
+						#print "euler_phi_r is: "+str(ep)
+						sqrt_euler_phi_r = math.sqrt(ep)
+						floor_sqrt_eulerphi_r_times_log_2_n = math.floor(sqrt_euler_phi_r * log_2_n)
+						#print "floor_sqrt_eulerphi_r_times_log_2_n is: "+str(floor_sqrt_eulerphi_r_times_log_2_n)
+						int_floor_sqrt_eulerphi_r_times_log_2_n = int(floor_sqrt_eulerphi_r_times_log_2_n)
+						print "int_floor_sqrt_eulerphi_r_times_log_2_n is: "+str(int_floor_sqrt_eulerphi_r_times_log_2_n)
+							
+						#raw_input("What is x??")
+
+						x_plus_a_cong_check_result = x_plus_a_cong_check(n, r, int_floor_sqrt_eulerphi_r_times_log_2_n)
+						#return n_status 
+						n_status = x_plus_a_cong_check_result
+						if n_status == True:
+							return "n is Prime"
+						elif n_status == False:
+							return "n is Composite"
+						else:
+							print "n_status is: "+str(n_status)
+							sys.exit()
 					else:
-						print "n_status is: "+str(n_status)
-						sys.exit()
+						print "n is: "+str(n)+", r is: "+str(r)
+						raw_input("Waiting for user..")
+				elif n <= r:
+					return "n is Prime"				
 				else:
 					print "n is: "+str(n)+", r is: "+str(r)
 					raw_input("Waiting for user..")
@@ -136,9 +154,10 @@ def perfect_power_check_a_b(n):
 	a = math.sqrt(n)
 	if a - int(a):
 		print "Not perfect power: sqrt("+str(n)+") - int(sqrt("+str(n)+")): True: "+str(a - int(a))		
-		if pow(a,2) == n:
-			print "CHECK! pow(a,2) is: "+str(pow(a,2))+" == n, n is: "+str(n)+", a is: "+str(a)
-			sys.exit()
+		#print "a is: "+str(a)+", pow(a,2) is: "+str(pow(a,2))+", n is: "+str(n)		
+		#if pow(a,2) == n:
+		#	print "CHECK! pow(a,2) is: "+str(pow(a,2))+" == n, n is: "+str(n)+", a is: "+str(a)
+		#	sys.exit()
 		return True
 	else:
 		print "perfect power: a - int(a): False: "+str(a - int(a))
@@ -146,7 +165,7 @@ def perfect_power_check_a_b(n):
 			print "CHECK! pow(a,2) is: "+str(pow(a,2))+" == n, n is: "+str(n)+", a is: "+str(a)
 			sys.exit()
 
-		return False
+		return False	#n is composite
 
 def perfect_power_check_a_b_old(n):
 	print "Running perfect_power_check_a_b_old("+str(n)+").."
@@ -263,11 +282,133 @@ def a_divide_n_check(n , min_r_n_minus_1):
 
 	return a_value, status
 
-def x_plus_a_cong_check():
+def x_plus_a_cong_check(n, r, int_floor_sqrt_eulerphi_r_times_log_2_n):
+	
+	#calc difference between n and r
+	diff_n_minus_r = n - r 	
+	print "n minus r is: "+str(diff_n_minus_r)
+
+	#Step 1 - expand binomial (x+a)**n for n, and store result (result1), and print it.
+	#need formula for nCr coefficients! -> n! / r!*(n-r)! ???
+	#need formula for n!
+	bin_coeffs=[]	
+	print "Evaluating Bin_Coeffs for "+str(n)+".."
+	#for b in xrange(0, n + 1):	
+	result = Bin_Coeffs(n)
+	print "len of Bin_Coeffs("+str(n)+") is: "+str(len(result))
+	#print "Bin_Coeffs("+str(n)+") is: "+str(result)
+	#bin_coeffs.append(result)
+	print "bin_coeffs for "+str(n)+" are: "+str(result)
+	#raw_input("Waiting for user..")
+
+
+	#Step 2 - Compute polynomial remainder (x**r - 1) from result1 of expanded binomial and store result (result2), and print it.
+	raw_input("Waiting for user..")
 
 
 
-	return
+	#Step 3 - Compute polynomial remainder (x**r - 1) from result1 of expanded binomial and store result (result2), and print it.
+	raw_input("Waiting for user..")
+
+
+	#Step 4 - take away (x**n + a) from result2 of expanded binomial and store result (result3), and print it.
+	
+
+
+
+	#step 5 - take result3 mod(n), store it (result4), and print it.
+	bin_coeffs=[]	
+	print "Evaluating elements of bin_coeffs mod "+str(n)+".."
+	bin_coeffs_mod_n=[]
+	for number in bin_coeffs:	
+		index = bin_coeffs.index(number)		
+		number = number % n 
+		print "bin_coeff["+str(index)+"] is: "+str(number)
+		bin_coeffs_mod_n.append(number)
+	print "bin_coeffs for "+str(n)+" are: "+str(bin_coeffs)
+	raw_input("Waiting for user..")
+
+
+
+	#step 4 - loop through values from a = 1 to int_floor_sqrt_eulerphi_r_times_log_2_n, testing if result3 = 0.
+	# If result3 == 0 then prime, otherwise composite.
+
+
+
+
+	return status
+
+def Bin_Coeffs(n):
+	#nCr = (n r) = n! / r!*(n-r)!
+	
+	#print "Running Bin_Coeffs("+str(n)+").."	
+	coeffs=[]
+	for b in xrange(0, n + 1):	
+		if (n == b) or (b == 0):
+			#print "coeff("+str(n)+", "+str(b)+") is 1"
+			coeffs.append(1)
+			#return 1
+		elif (b == 1) or b == n - 1:
+			#print "coeff("+str(n)+", "+str(b)+") is "+str(n)
+			coeffs.append(n)
+			#return n
+		elif (b == 2) or b == n - 2:
+			#print "coeff("+str(n)+", "+str(b)+") is "+str(n)
+			coeffs.append((pow(n,2)-n)/2)
+			#return n
+		else:
+			n_fac = factorial(n)
+			#print "n_fac is: "+str(n_fac)
+			b_fac = factorial(b)
+			#print "b_fac is: "+str(b_fac)
+			n_minus_b_fac = factorial(n - b)
+			#print "n_minus_b_fac is: "+str(n_minus_b_fac)
+			result = n_fac / (b_fac * n_minus_b_fac)
+			#print "n_minus_b_fac is: "+str(n_minus_b_fac)
+			#print "coeff("+str(n)+", "+str(b)+") is "+str(result)
+			#raw_input("waiting for user..")
+			coeffs.append(result)
+			#return result
+
+	return coeffs
+
+def factorial(z):
+
+	#print "Running factorial("+str(z)+").."
+	if z == 1:
+		return 1
+	elif z >= 2:	
+		#initialise answer
+		answer = 1
+		#print "Initial answer is: "+str(answer)
+		for b in xrange(z, 1, -1):
+			#print "b is now: "+str(b)			
+			answer = answer * b
+			#print "answer is now: "+str(answer)
+		#print str(z)+"! is: "+str(answer)
+
+	return answer
+
+
+def euler_phi_noprimesused(n):	
+
+	#euler_phi_noprimesused(n) = amount of integers k, where 1 <= k <= n for which the gcd(n,k)=1
+	
+	#print "Running euler_phi_noprimesused("+str(n)+").."
+	status = False					#O(1)
+	count_k = 0	
+
+	for k in xrange(1, n + 1):		#O(n)	#Subtotal: O(n*pow(h,2))			#gcd(n,k) --> b=min(n,k) --> h=#base 10 digits of b
+		if gcd(n,k) == 1:			#1 op for if. #O(pow(h,2)) for gcd
+			count_k = count_k + 1			#1 op
+	
+	#print "count_k is: "+str(count_k)
+	if count_k <> 0:
+		status=True
+	else:
+		status=False
+
+	return count_k, status
 
 def exponent_g_p(g, p):
 	#print "Running exponent_g_p("+str(g)+", "+str(p)+").."
@@ -506,9 +647,6 @@ def size_input_check(input_number):
 		print('Number to attempt to factorise is too large for this program. Try a number <= 2x10^8. Exiting to avoid memory issues..')
 		sys.exit()
 
-if __name__=='__main__':
-	main()
-
 def egcd(a, b):							#O(n)
 	#print("Running egcd("+str(a)+","+str(b)+")")
 	#print "a is: "+str(a)
@@ -529,3 +667,8 @@ def modinv(a, m):						#### O(n+5) ###
 		raise Exception('No Modular Inverse') 			#O(1)
 	print(str(a)+"**(-1) mod "+str(m)+" is: "+str(x % m))	
 	return x % m						#O(1)
+
+if __name__=='__main__':
+	main()
+
+
