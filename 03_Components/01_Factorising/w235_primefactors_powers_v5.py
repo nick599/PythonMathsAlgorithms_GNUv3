@@ -53,7 +53,7 @@ def main():
 	#Call size_input_check() if want to stop program running for very large numbers 
 	#size_input_check()
 
-	result1 = factorise(N)
+	result1 = factorise_235wheel(N)
 	#return factors, c_factorisations
 	factors = result1[0]
 	c_factorisations = result1[1]
@@ -74,14 +74,14 @@ def main():
 	print("time for calc prime factors & powers is:",round(c_calc_powers + c_calc_primefactors,8))
 	print("total calc time is: ",round(total_calc_time,8))
 
-def factorise(N):		
+def factorise_235wheel(N):		
 	#based on code on https://stackoverflow.com/questions/16996217/prime-factorization-list/
 	#Author states this is is O(sqrt(n))) and 2 to 3 times faster than trial division in practice
 	#Wheel factorization, which uses a cyclic set of gaps between potential primes to greatly
 	#reduce the number of trial divisions.
 	#uses a 2,3,5-wheel
 
-	print("Running factorise()..")	
+	print("Running factorise_235wheel(",str(N),")..")	
 
 	#Create lists to hold prime factors of N and corresponding powers
 	#s_before_lists = time.time()	
@@ -108,7 +108,7 @@ def factorise(N):
 		
 	c_factorisations = time.time() - s_before_factorisations
 
-	#print("factors are: "+str(factors)
+	print("factors are: "+str(factors))
 	#print("c_factorisations are: "+str(c_factorisations)
 
 	#input("Waiting for user..")	
@@ -122,7 +122,7 @@ def factorise(N):
 
 def calc_primefactors_powers(N, factors):
 	#print("------------------"
-	print("Running calc_primefactors_powers(",factors,")..")
+	print("Running calc_primefactors_powers(",N,factors,")..")
 	
 	#Now want to find max powers m for each factor in factors.
 	#can do this by counting unique factors			
