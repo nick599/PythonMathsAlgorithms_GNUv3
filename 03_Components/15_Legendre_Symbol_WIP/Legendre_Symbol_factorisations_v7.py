@@ -46,6 +46,7 @@ sys.path.append(str(PrimalityTesting_dir))
 # 5. Import the file (without the .py extension)
 #py3 files with factorisation algorithms
 import w235_primefactors_powers_v5
+#import w235_primefactors_no_powers_v5
 import Diff_of_Squares_v12_OnHold
 
 #Remainder TO DO!
@@ -260,7 +261,7 @@ def factorise_powers(N):
 	#	factors = result1[0]
 	#	c_factorisations = result1[1]
 
-	if 5 < len_N <= 10:
+	if 0 < len_N <= 10:
 	#elif 5 < len_N <= 10:
 		result1 = w235_primefactors_powers_v5.factorise_235wheel(N)
 		#return factors, c_factorisations
