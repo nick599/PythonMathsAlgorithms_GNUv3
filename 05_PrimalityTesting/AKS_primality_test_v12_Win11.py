@@ -20,6 +20,7 @@ import os
 #import csv
 import time
 
+print("AKS_primality_test_v12_Win11.py")
 print("Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.")
 print("Version 12. 14/10/2026.")
 print("Programmed & tested in python 3 only.")

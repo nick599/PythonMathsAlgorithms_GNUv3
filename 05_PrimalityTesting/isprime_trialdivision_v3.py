@@ -1,3 +1,4 @@
+#isprime_trialdivision_v3.py
 #Copyright Nick Prowse 2017. Code Licenced under GNU GPL v3.
 #Version 3. 27/05/2018.
 #Programmed & tested in Python 2.76 only
@@ -10,15 +11,16 @@ import sys
 #import csv
 #import os.path
 
-print("Copyright Nick Prowse 2018. Code Licenced under GNU GPL v3.")
-print("Version 3. 27/05/2018.")
-print("Programmed & tested in Python 2.76 only.")
-print("This program checks if a number input by user is prime.")
-print("It has been tested on Linux Mint v3.19 x64.")
-print("Using Lists instead of sets for storage to minimise memory usage.")
-print("---------------------------------------------------------------------")
-
 def main():
+	print("isprime_trialdivision_v3.py")
+	print("Copyright Nick Prowse 2018. Code Licenced under GNU GPL v3.")
+	print("Version 3. 27/05/2018.")
+	print("Programmed & tested in Python 2.76 only.")
+	print("This program checks if a number input by user is prime.")
+	print("It has been tested on Linux Mint v3.19 x64.")
+	print("Using Lists instead of sets for storage to minimise memory usage.")
+	print("---------------------------------------------------------------------")
+
 	print("What is the number you want to test?")
 	N_initial = input()
 	if N_initial.isdigit() is False:

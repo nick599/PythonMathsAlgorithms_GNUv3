@@ -1,3 +1,4 @@
+#w235_primefactors_powers_v5.py
 #Copyright Nick Prowse 2018. Code Licenced under GNU GPL3.
 #Version 5. 25/04/2018.
 #Programmed & tested in Python 3.4.3 only
@@ -19,6 +20,7 @@ def main():
 	#prime_list_filename="primes_upto_100000.csv"
 	#primefile=prime_list_path + prime_list_filename
 
+	print("w235_primefactors_powers_v5.py")
 	print("Copyright Nick Prowse 2018. Code Licenced under GNU GPL3.")
 	print("Version:",version,". 25/05/2018.")
 	print("Programmed & tested in Python 3.4.3 only.")

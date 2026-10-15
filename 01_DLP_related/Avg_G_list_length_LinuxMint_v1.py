@@ -1,3 +1,4 @@
+#Avg_G_list_length_LinuxMint_v1
 #Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.
 #Version 2. 11/10/2026.
 #Programmed & tested in Python 3.4.3 only
@@ -12,6 +13,7 @@ from pathlib import Path
 #import csv
 #import time
 
+print("Avg_G_list_length_LinuxMint_v1")
 print("Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.")
 print("Version 2. 11/10/2026.")
 print("Programmed & tested in python 3.4.3 only.")

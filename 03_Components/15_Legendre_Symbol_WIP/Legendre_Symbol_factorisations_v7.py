@@ -1,3 +1,12 @@
+print("Legendre_Symbol_factorisations_v7.py")
+print("Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.")
+print("Version 8. 12/10/2026.")
+print("Programmed & tested in Python 3 only")
+print("This program works out the chinese remainder of two lists specified by user in ranges.")
+print("It has been tested on Windows 11 Home x64")
+print("Testing results .... of xxx in xxx seconds.")
+print("---------------------------------------------------------------------")
+
 #Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.
 #Version 8. 12/10/2026.
 #Programmed & tested in Python 3 only
@@ -22,22 +31,23 @@ factorise_folder_path = os.path.abspath('/03_Components/01_Factorising')
 
 # 1. Get the path to the current directory (current_folder)
 Current_dir = os.path.dirname(os.path.abspath(__file__))
+print("Current_dir:",Current_dir)
 
 # 2. Navigate up to the parent directory (parent_folder)
 Parent_dir = os.path.dirname(Current_dir)
 print("Parent_dir:",Parent_dir)
 Parent_dir = Path(Parent_dir)
 
+Parent_2up_dir = os.path.dirname(Parent_dir)
+print("Parent_2up_dir:",Parent_2up_dir)
+Parent_2up_dir = Path(Parent_2up_dir)
+
 # 3. Construct the absolute path to subdirectories
-#Factorising_dir = os.path.join(Parent_dir, '/01_Factorising')
 Factorising_dir = Parent_dir / "01_Factorising"
 print("Factorising_dir:",Factorising_dir)
-#sys.path.append(str(Factorising_dir))
 
-#PrimalityTesting_dir = os.path.join(Parent_dir, '/05_PrimalityTesting')
-PrimalityTesting_dir = Parent_dir / "05_PrimalityTesting"
+PrimalityTesting_dir = Parent_2up_dir / "05_PrimalityTesting"
 print("PrimalityTesting_dir:",PrimalityTesting_dir)
-#sys.path.append(str(PrimalityTesting_dir))
 
 # 4. Append them to sys.path so Python can see it
 sys.path.append(str(Factorising_dir))
@@ -62,14 +72,6 @@ import Diff_of_Squares_v12_OnHold
 #Primality testing
 import isprime_trialdivision_v3
 #import AKS_primality_test_v12_Win11
-
-print("Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.")
-print("Version 8. 12/10/2026.")
-print("Programmed & tested in Python 3 only")
-print("This program works out the chinese remainder of two lists specified by user in ranges.")
-print("It has been tested on Windows 11 Home x64")
-print("Testing results .... of xxx in xxx seconds.")
-print("---------------------------------------------------------------------")
 	
 def main():
 	
@@ -138,6 +140,7 @@ def leg_s_g_p_new(g,p):
 			c=c+1
 
 		print("legendre_symbols to calculate:",leg_symbols)
+		
 
 		#check if 2 is numerator in any legendre symbol
 		#if yes calc (2/p) legendre symbol
@@ -152,91 +155,108 @@ def leg_s_g_p_new(g,p):
 
 		#now evaluate each subsidary leg_symbol
 
-		
 		for leg_symbol in leg_symbols:
-			print("working on subsidary legendre_symbol:",leg_symbol)			
-
-			#mod 4 rules
-			if not leg_symbol[0] == 1:
-				if leg_symbol[1] >=2:
-					if leg_symbol[0] % 4 == 1:
-						temp=leg_symbol[0]
-						leg_symbol[0]=leg_symbol[1]
-						leg_symbol[1]=temp
-					elif leg_symbol[1] % 4 == 1:
-						temp=leg_symbol[0]
-						leg_symbol[0]=leg_symbol[1]
-						leg_symbol[1]=temp
-					elif leg_symbol[0] % 4 == 3:
-						if leg_symbol[1] % 4 == 3:
+			print("-------------------------------------------")
+			eval=False
+			while eval==False:
+				print("working on subsidary legendre_symbol:",leg_symbol)			
+				#mod 4 rules
+				if not leg_symbol[0] == 1:
+					if leg_symbol[1] >=2:
+						if leg_symbol[0] % 4 == 1:
 							temp=leg_symbol[0]
-							leg_symbol[0]=-leg_symbol[1]
+							leg_symbol[0]=leg_symbol[1]
 							leg_symbol[1]=temp
-				print("revised legendre_symbol to calculate after mod 4 rules:",leg_symbol)
-
-			if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-				leg_symbol[2] = leg_symbol[0]
-				print("legendre_symbol evaluated for:",leg_symbol)
-				#break
-			elif leg_symbol[0] > 1:
-				leg_symbol[0] = leg_symbol[0] - leg_symbol[1]
-				print("leg_symbol[0] after making negative:",leg_symbol)
-
-			#mod reduce leg_symbol[0]
-			if leg_symbol[0] != 1:
-				if leg_symbol[0] != -1:
-					leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
-					print("revised legendre_symbol to calculate after mod reduce leg_symbol[0]:",leg_symbol)
-
-			if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-				leg_symbol[2] = leg_symbol[0]
-				print("legendre_symbol evaluated for:",leg_symbol)
-				#break
-			elif leg_symbol[0] > 1:
-				leg_symbol[0] = leg_symbol[0] - leg_symbol[1]
-				print("leg_symbol[0] after making negative:",leg_symbol)
-
-			#mod 4 rules
-			if not leg_symbol[0] == 1:
-				if leg_symbol[1] >=2:
-					if leg_symbol[0] % 4 == 1:
-						temp=leg_symbol[0]
-						leg_symbol[0]=leg_symbol[1]
-						leg_symbol[1]=temp
-					elif leg_symbol[1] % 4 == 1:
-						temp=leg_symbol[0]
-						leg_symbol[0]=leg_symbol[1]
-						leg_symbol[1]=temp
-					elif leg_symbol[0] % 4 == 3:
-						if leg_symbol[1] % 4 == 3:
+						elif leg_symbol[1] % 4 == 1:
 							temp=leg_symbol[0]
-							leg_symbol[0]=-leg_symbol[1]
+							leg_symbol[0]=leg_symbol[1]
 							leg_symbol[1]=temp
+						elif leg_symbol[0] % 4 == 3:
+							if leg_symbol[1] % 4 == 3:
+								temp=leg_symbol[0]
+								leg_symbol[0]=-leg_symbol[1]
+								leg_symbol[1]=temp
 					print("revised legendre_symbol to calculate after mod 4 rules:",leg_symbol)
 
-			if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-				leg_symbol[2] = leg_symbol[0]
-				print("legendre_symbol evaluated for:",leg_symbol)
-				#break
-			elif leg_symbol[0] > 1:
-				leg_symbol[0] = leg_symbol[0] - leg_symbol[1]
-				print("leg_symbol[0] after making negative:",leg_symbol)		
-
-			#mod reduce leg_symbol[0]
-			if leg_symbol[0] != 1:
-				if leg_symbol[0] != -1:		
+				if leg_symbol[0] == 1 or leg_symbol[0] == -1:
+					leg_symbol[2] = leg_symbol[0]
+					print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+					eval=True
+					#break
+				elif leg_symbol[0] > 1:
+					print("leg_symbol[0] > 1")
+					print("leg_symbol[0]:",leg_symbol[0])
+					print("leg_symbol[1]:",leg_symbol[1])
 					leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
-					print("revised legendre_symbol to calculate after mod reduce leg_symbol[0]:",leg_symbol)
+					print("leg_symbol[0] after mod",leg_symbol[1],":",leg_symbol)
 
-			if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-				leg_symbol[2] = leg_symbol[0]
-				print("legendre_symbol evaluated for:",leg_symbol)
-				#break
-			elif leg_symbol[0] > 1:
-				leg_symbol[0] = leg_symbol[0] - leg_symbol[1]
-				print("leg_symbol[0] after making negative:",leg_symbol)
+				#mod reduce leg_symbol[0]
+				if leg_symbol[0] != 1:
+					if leg_symbol[0] != -1:
+						print("leg_symbol[0] not  1 nor -1")
+						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
+						print("revised legendre_symbol to calculate after mod reduce", leg_symbol[0],":",leg_symbol)
+
+				if leg_symbol[0] == 1 or leg_symbol[0] == -1:
+					print("leg_symbol[0] is 1 or -1")
+					leg_symbol[2] = leg_symbol[0]
+					print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+					eval=True
+					#break
+				elif leg_symbol[0] > 1:
+					print("leg_symbol[0] is > 1")
+					leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
+					print("leg_symbol[0] after mod",leg_symbol[1],":",leg_symbol)
+
+				#mod 4 rules
+				if not leg_symbol[0] == 1:
+					if leg_symbol[1] >=2:
+						if leg_symbol[0] % 4 == 1:
+							print("leg_symbol[0] % 4 == 1")
+							temp=leg_symbol[0]
+							leg_symbol[0]=leg_symbol[1]
+							leg_symbol[1]=temp
+						elif leg_symbol[1] % 4 == 1:
+							print("leg_symbol[1] % 4 == 1")
+							temp=leg_symbol[0]
+							leg_symbol[0]=leg_symbol[1]
+							leg_symbol[1]=temp
+						elif leg_symbol[0] % 4 == 3:
+							if leg_symbol[1] % 4 == 3:
+								print("leg_symbol[1] % 4 == 3")
+								temp=leg_symbol[0]
+								leg_symbol[0]=-leg_symbol[1]
+								leg_symbol[1]=temp
+						print("revised legendre_symbol to calculate after mod 4 rules:",leg_symbol)
+
+				if leg_symbol[0] == 1 or leg_symbol[0] == -1:
+					leg_symbol[2] = leg_symbol[0]
+					print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+					eval=True
+					#break
+				elif leg_symbol[0] > 1:
+					leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
+					print("leg_symbol[0] after mod",leg_symbol[1],":",leg_symbol)		
+
+				#mod reduce leg_symbol[0]
+				if leg_symbol[0] != 1:
+					if leg_symbol[0] != -1:		
+						print("leg_symbol[0] not 1 nor -1")
+						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
+						print("revised legendre_symbol to calculate after mod reduce", leg_symbol[0],":",leg_symbol)
+
+				if leg_symbol[0] == 1 or leg_symbol[0] == -1:
+					print("leg_symbol[0] is 1 or -1")
+					leg_symbol[2] = leg_symbol[0]
+					print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+					eval=True
+					#break
+				elif leg_symbol[0] > 1:
+					leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
+					print("leg_symbol[0] after mod",leg_symbol[1],":",leg_symbol)
 	
 	#loop through all subsidary leg_symbols and calculate final legendre symbol
+	print("-------------------------------------------")
 	legendre_symbol_g_p=1
 	for leg_symbol in leg_symbols:
 		legendre_symbol_g_p=legendre_symbol_g_p * leg_symbol[2]

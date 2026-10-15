@@ -1,3 +1,4 @@
+#Diff_of_Squares_v12_OnHold.py
 #Copyright Nick Prowse 2019. Code Licenced under GNU GPL3.
 #Version 11. 05/05/2019.
 #Programmed & tested in Python 3.4.3 only
@@ -26,18 +27,19 @@ primes_upto_50 = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47]
 #prime_list_filename="primes_upto_100000.csv"
 #primefile=prime_list_path + prime_list_filename
 
-print("Copyright Nick Prowse 2019. Code Licenced under GNU GPL3.")
-print("Version:",version,". 05/05/2019.")
-print("Programmed & tested in Python 3.4.3 only.")
-print("This program loops through all numbers upto N specified by user, and attempts to factorise each number via difference of sqaures.") 
-#print("Results printed are three arrays - first for prime factors, second for powers of those primes.")
-#print("Prime list file should be a .CSV file with each prime separated by commas."
-#print("Ensure that \"prime_list_path\" and \"prime_list_filename\" are edited for the location of prime list file used."
-#print("The larger the prime file is that is used, the longer the factorisation will take!"
-print("It has been tested on Linux Mint v3.19 x64 using a prime list with primes upto 9,999,997 and was able to factorise most numbers under 2.5x10^9 in XXX seconds.")
-print("---------------------------------------------------------------------")
-	
 def main():
+
+	print("Diff_of_Squares_v12_OnHold.py")
+	print("Copyright Nick Prowse 2019. Code Licenced under GNU GPL3.")
+	print("Version:",version,". 05/05/2019.")
+	print("Programmed & tested in Python 3.4.3 only.")
+	print("This program loops through all numbers upto N specified by user, and attempts to factorise each number via difference of squares.") 
+	#print("Results printed are three arrays - first for prime factors, second for powers of those primes.")
+	#print("Prime list file should be a .CSV file with each prime separated by commas."
+	#print("Ensure that \"prime_list_path\" and \"prime_list_filename\" are edited for the location of prime list file used."
+	#print("The larger the prime file is that is used, the longer the factorisation will take!"
+	print("It has been tested on Linux Mint v3.19 x64 using a prime list with primes upto 9,999,997 and was able to factorise most numbers under 2.5x10^9 in XXX seconds.")
+	print("---------------------------------------------------------------------")
 	
 	print('Number to attempt to factorise?')
 	N_initial = input()
