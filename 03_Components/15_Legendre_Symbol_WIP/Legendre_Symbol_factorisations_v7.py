@@ -158,43 +158,64 @@ def leg_s_g_p_new(g,p):
 		for leg_symbol in leg_symbols:
 			eval=False
 			if leg_symbol[2]!=0:
+				print("leg_symbol[2]!=0")
 				eval=True
 				break
 			elif leg_symbol[2]==0:
 				print("-------------------------------------------")
 				print("working on subsidary legendre_symbol:",leg_symbol)
-				b=0
+				a=0
 				while eval==False:				
-					b=b+1
-					print("b:",b)
-					#mod 4 rule
+					a=a+1
+					print("a:",a)
 					if not leg_symbol[0] == 1:
 						if leg_symbol[1] >=2:
-							if leg_symbol[0] % 4 == 1:
-								temp=leg_symbol[0]
-								leg_symbol[0]=leg_symbol[1]
-								leg_symbol[1]=temp
-							elif leg_symbol[1] % 4 == 1:
-								temp=leg_symbol[0]
-								leg_symbol[0]=leg_symbol[1]
-								leg_symbol[1]=temp
-							elif leg_symbol[0] % 4 == 3:
-								if leg_symbol[1] % 4 == 3:
+							#mod 4 rule
+							if isprime(leg_symbol[0]) and leg_symbol[0] > 2:
+								if leg_symbol[0] % 4 == 1 or leg_symbol[1] % 4 == 1:
 									temp=leg_symbol[0]
-									leg_symbol[0]=-leg_symbol[1]
+									leg_symbol[0]=leg_symbol[1]
 									leg_symbol[1]=temp
-							print("revised legendre_symbol after mod 4 rule:",leg_symbol)
+								#elif leg_symbol[1] % 4 == 1:
+								#	temp=leg_symbol[0]
+								#	leg_symbol[0]=leg_symbol[1]
+								#	leg_symbol[1]=temp
+								elif leg_symbol[0] % 4 == 3:
+									if leg_symbol[1] % 4 == 3:
+										temp=leg_symbol[0]
+										leg_symbol[0]=-leg_symbol[1]
+										leg_symbol[1]=temp
+								print("revised legendre_symbol after mod 4 rule:",leg_symbol)
+
+					diff = leg_symbol[0] - leg_symbol[1]
+					print("diff:",diff)
 
 					if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-						print("a = 1 ============================")
+						print("b = 1 ============================")
 						print("leg_symbol[0] == 1 or leg_symbol[0] == -1")
 						#print("leg_symbol[0]:",leg_symbol[0])
 						leg_symbol[2] = leg_symbol[0]
 						print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 						eval=True
-						#break
-					elif leg_symbol[0] > 1:
-						print("leg_symbol[0] > 1")
+						break
+					elif diff == 1:
+						print("b = 2 ============================")
+						print("diff = 1")
+						#print("leg_symbol[0]:",leg_symbol[0])
+						leg_symbol[2] = 1
+						print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+						eval=True
+						break
+					elif diff == -1:
+						print("b = 3 ============================")
+						print("diff = -1")
+						#print("leg_symbol[0]:",leg_symbol[0])
+						leg_symbol[2] = -1
+						print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+						eval=True
+						break
+					elif leg_symbol[0] > 1 and leg_symbol[1] > 1 and leg_symbol[0] > leg_symbol[1]:
+						print("leg_symbol[0] > 1 and leg_symbol[1] > 1 and leg_symbol[0] > leg_symbol[1]")
 						print("leg_symbol[0]:",leg_symbol[0])
 						print("leg_symbol[1]:",leg_symbol[1])
 
@@ -202,62 +223,165 @@ def leg_s_g_p_new(g,p):
 						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
 						print("revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
 						
+						diff = leg_symbol[0] - leg_symbol[1]
+						print("diff:",diff)
+						
 						if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-							print("a = 2 ============================")
+							print("b = 4a ============================")
 							leg_symbol[2] = leg_symbol[0]
 							print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 							eval=True
-							#break
+							break
+						if diff == 1:
+							print("b = 4b ============================")
+							leg_symbol[2] = 1
+							print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+							eval=True
+							break
+						if diff == -1:
+							print("b = 4c ============================")
+							leg_symbol[2] = -1
+							print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+							eval=True
+							break
+					elif leg_symbol[0] > 1 and leg_symbol[1] > 1 and leg_symbol[0] < leg_symbol[1]:
+						print("leg_symbol[0] > 1 and leg_symbol[1] > 1 and leg_symbol[0] < leg_symbol[1]")
+						print("TO DO")
+						print("leg_symbol[0]:",leg_symbol[0])
+						print("leg_symbol[1]:",leg_symbol[1])
+
+						input("Waiting for user..")
+
+						#mod reduce leg_symbol[0]
+						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
+						print("revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
+						
+						diff = leg_symbol[0] - leg_symbol[1]
+						print("diff:",diff)
+						
+						if leg_symbol[0] == 1 or leg_symbol[0] == -1:
+							print("b = 5a ============================")
+							leg_symbol[2] = leg_symbol[0]
+							print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+							eval=True
+							break
+						if diff == 1:
+							print("b = 5b ============================")
+							leg_symbol[2] = 1
+							print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+							eval=True
+							break
+						if diff == -1:
+							print("b = 5c ============================")
+							leg_symbol[2] = -1
+							print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+							eval=True
+							break
+
+					#elif leg_symbol[0] > 1:
+					#	print("leg_symbol[0] > 1")
+					#	print("leg_symbol[0]:",leg_symbol[0])
+					#	print("leg_symbol[1]:",leg_symbol[1])
+
+						#mod reduce leg_symbol[0]
+					#	leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
+					#	print("revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
+						
+					#	diff = leg_symbol[0] - leg_symbol[1]
+					#	print("diff:",diff)
+						
+					#	if leg_symbol[0] == 1 or leg_symbol[0] == -1:
+					#		print("b = 6 ============================")
+					#		leg_symbol[2] = leg_symbol[0]
+					#		print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+					#		eval=True
+					#		break
 
 					#mod reduce leg_symbol[0]
-					if leg_symbol[0] != 1:
-						if leg_symbol[0] != -1:
-							print("leg_symbol[0] not  1 nor -1")
-							leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
-							print("revised legendre_symbol after mod", leg_symbol[1],":",leg_symbol)
+					#if leg_symbol[0] != 1:
+					#	if leg_symbol[0] != -1:
+					#		print("leg_symbol[0] not  1 nor -1")
+					#		leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
+					#		print("revised legendre_symbol after mod", leg_symbol[1],":",leg_symbol)
 							
-							if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-								print("a = 3 ============================")
-								leg_symbol[2] = leg_symbol[0]
-								print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
-								eval=True
-								#break
+					#		if leg_symbol[0] == 1 or leg_symbol[0] == -1:
+					#			print("b = 7 ============================")
+					#			leg_symbol[2] = leg_symbol[0]
+					#			print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+					#			eval=True
+					#			#break
+					
 					if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-						print("============================")
+						print("b = 8 ============================")
 						print("leg_symbol[0] is 1 or -1")
 						leg_symbol[2] = leg_symbol[0]
 						print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 						eval=True
-						#break
+						break
 					elif leg_symbol[0] > 1:
-						print("leg_symbol[0] is > 1")
+						print("leg_symbol[0]",leg_symbol[0],"is > 1")
 						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
 						print("revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
 
-					#mod 4 rules
 					if not leg_symbol[0] == 1:
 						if leg_symbol[1] >=2:
-							if leg_symbol[0] % 4 == 1:
-								print("leg_symbol[0] % 4 == 1")
-								temp=leg_symbol[0]
-								leg_symbol[0]=leg_symbol[1]
-								leg_symbol[1]=temp
-							elif leg_symbol[1] % 4 == 1:
-								print("leg_symbol[1] % 4 == 1")
-								temp=leg_symbol[0]
-								leg_symbol[0]=leg_symbol[1]
-								leg_symbol[1]=temp
-							elif leg_symbol[0] % 4 == 3:
-								if leg_symbol[1] % 4 == 3:
-									print("leg_symbol[1] % 4 == 3")
+							if isprime(leg_symbol[0]) and leg_symbol[0] > 2:
+								#mod 4 rules
+								if leg_symbol[0] % 4 == 1:
+									print("leg_symbol[0] % 4 == 1")
 									temp=leg_symbol[0]
-									leg_symbol[0]=-leg_symbol[1]
+									leg_symbol[0]=leg_symbol[1]
 									leg_symbol[1]=temp
-							print("revised legendre_symbol after mod 4 rule:",leg_symbol)
+								elif leg_symbol[1] % 4 == 1:
+									print("leg_symbol[1] % 4 == 1")
+									temp=leg_symbol[0]
+									leg_symbol[0]=leg_symbol[1]
+									leg_symbol[1]=temp
+								elif leg_symbol[0] % 4 == 3:
+									if leg_symbol[1] % 4 == 3:
+										print("leg_symbol[1] % 4 == 3")
+										temp=leg_symbol[0]
+										leg_symbol[0]=-leg_symbol[1]
+										leg_symbol[1]=temp
+								print("revised legendre_symbol after mod 4 rule:",leg_symbol)
 
-					if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-						print("a = 4 ============================")
+							elif leg_symbol[0] == 2:
+								print("c = 1 ~~~~~~~~~~~~~~~~~~~~")
+								print("leg_symbol[0] == 2")
+								print("TO DO") ##TO DO
+								input("Waiting for user..")
+
+							else:
+								print("c = 2 ~~~~~~~~~~~~~~~~~~~~")
+								print("running factorise_powers(",leg_symbol[0],")")
+								result_ls = factorise_powers(leg_symbol[0])
+								#return prime_factors, powers, round(c_calc_primefactors,8), round(c_calc_powers,8), round(total_calc_time,8)
+								prime_factors_ls =result_ls[0]
+								powers_ls = result_ls[1]
+								print(result_ls)
+
+								powers_new_ls=[]
+								for power_ls in powers_ls:
+									if power_ls >=2:
+										powers_new_ls.append(power_ls % 2)
+									else:
+										powers_new_ls.append(power_ls)
+
+								print("powers_ls mod 2:",powers_new_ls)
+
+								print("TO DO") ##TO DO
+								input("Waiting for user..")
+
+					if leg_symbol[0] == 1:
+						print("b = 9 ============================")
 						print("leg_symbol[0] == 1 or leg_symbol[0] == -1")
+						leg_symbol[2] = leg_symbol[0]
+						print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+						eval=True
+						break
+					elif leg_symbol[0] == -1:
+						print("b = 10 ============================")
+						print("leg_symbol[0] == -1")
 						leg_symbol[2] = leg_symbol[0]
 						print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 						eval=True
@@ -275,12 +399,12 @@ def leg_s_g_p_new(g,p):
 							print("revised legendre_symbol after mod", leg_symbol[1],":",leg_symbol)
 
 					if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-						print("a = 5 ============================")
+						print("b = 11 ============================")
 						print("leg_symbol[0] == 1 or == -1")
 						leg_symbol[2] = leg_symbol[0]
 						print("legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 						eval=True
-						#break
+						break
 					elif leg_symbol[0] > 1:
 						print("leg_symbol[0] > 1")
 						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
@@ -484,6 +608,23 @@ def factorise_235wheel(N):
 #def factorise_GNFS(N):
 
 
+
+def isprime(p):		
+	#Checks for divisibility by factors upto sqrt(n)
+	#Likely to be O(sqrt(n))
+	
+	print("Running isprime(",str(p),")..")
+	# www.rookieslab.com/posts/fastest-way-to-check-if-a-number-is-prime-or-not
+	if p==1:
+		return False	
+		
+	i = 2
+	while i*i <= p:
+		if p % i == 0:
+			return False
+		i += 1
+
+	return True
 
 def is_primitive_root(g, p):
 	#Efficiently checks if g is a primitive root modulo p.
