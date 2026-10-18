@@ -345,14 +345,21 @@ def leg_s_g_p_new(g,p):
 										leg_symbol[1]=temp
 								print("revised legendre_symbol after mod 4 rule:",leg_symbol)
 
-							elif leg_symbol[0] == 2:
+							elif leg_symbol[0] == 2 and isprime(leg_symbol[1]):
 								print("c = 1 ~~~~~~~~~~~~~~~~~~~~")
-								print("leg_symbol[0] == 2")
-								print("TO DO") ##TO DO
-								input("Waiting for user..")
+								print("leg_symbol[0] == 2 and isprime(leg_symbol[1]) == True")
+								if p % 8 == 1 or p % 8 == 7: 
+									leg_symbol[2] = 1
+								elif p % 8 == 3 or p % 8 == 5: 
+									leg_symbol[2] = -1
+
+							#elif leg_symbol[0] == 2:
+							#	print("c = 2 ~~~~~~~~~~~~~~~~~~~~")
+							#	print("leg_symbol[0] == 2 and isprime(leg_symbol[1]) == False")
+							#	print("Undefined as",leg_symbol[1],"is not prime")
 
 							else:
-								print("c = 2 ~~~~~~~~~~~~~~~~~~~~")
+								print("c = 3 ~~~~~~~~~~~~~~~~~~~~")
 								print("running factorise_powers(",leg_symbol[0],")")
 								result_ls = factorise_powers(leg_symbol[0])
 								#return prime_factors, powers, round(c_calc_primefactors,8), round(c_calc_powers,8), round(total_calc_time,8)
