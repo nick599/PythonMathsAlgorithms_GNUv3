@@ -1072,7 +1072,7 @@ def isprime(p):
 	if p <= 1:
 		return False
 
-	if p = 2:
+	if p == 2:
 		return True
 
 	if p % 2 == 0:
