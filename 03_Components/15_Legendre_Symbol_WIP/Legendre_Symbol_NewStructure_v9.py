@@ -104,48 +104,66 @@ def leg_s_g_p_new(g,p):
 		print("number of loops:",a)
 
 		#Check if p and g are prime
-		result_p = isprime(p)
-		result_g = isprime(g)
+
+		if p > 0:
+			result_p = isprime(p)
+		elif p < 0: 
+			result_p = isprime(-p)
 		
+		if g > 0:
+			result_g = isprime(g)
+		elif g < 0:
+			result_g = isprime(-g)		
+
 		if result_p == False:
 			print("p:",p,"is not prime! Legendre symbol undefined!")
 			break
 		elif g == 1:
 			print("g = 1")
 			legendre_symbol_g_p = 1
+			g = 1
 		elif g % p == 0:
 			print("g % p == 0")
 			legendre_symbol_g_p = 0
+			g = 0
 		elif g == -1:
 			print("g == -1")
 			if p % 4 == 1:
 				print("g=-1 and p mod 4 = 1")			
 				legendre_symbol_g_p = 1
+				g = 1
 			elif p % 4 == 3:
 				print("g=-1 and p mod 4 = 3")
-				legendre_symbol_g_p = -1			
+				legendre_symbol_g_p = -1
+				g = -1			
 		elif g == 2:
 			print("g == 2")
 			if p % 8 == 1 or p % 8 == -1:
 				print("g=2 and p mod 8 = +-1")
 				legendre_symbol_g_p = 1
+				g = 1
 			elif p % 8 == 3 or p % 8 == -3:
 				print("g=2 and p mod 8 = +-3")
 				legendre_symbol_g_p = -1
+				g = -1
 			else:
 				print("g = 2 and ",p,"mod 8 not 1, -1, 3, or -3")
 				legendre_symbol_g_p = (-1)**((p**2-1)/8)
+				g = legendre_symbol_g_p
 
 		elif g == 3 and p != 3:
 			if p % 12 == 1 or p % 12 == 11:
 				print("g = 3 and",p,"mod 12 = 1 or 11")
 				legendre_symbol_g_p = 1
+				g = 1
 			elif p % 12 == 5 or p % 12 == 7:
 				print("g = 3 and ",p,"mod 12 = 5 or 7")
 				legendre_symbol_g_p = -1
+				g = -1
 			else:
 				print("g = 3 and ",p,"mod 12 not 5 or 7")
 				legendre_symbol_g_p = (-1)**math.floor((p+1)/6)
+				g = legendre_symbol_g_p
 		elif g==5:
 			if p % 5 == 1 or p % 5 == 4:
 				print("g = 5 and",p,"mod 5 = 1 or 11")
@@ -153,9 +171,20 @@ def leg_s_g_p_new(g,p):
 			elif p % 5 == 2 or p % 5 == 3:
 				print("g = 5 and ",p,"mod 5 = 2 or 3")
 				legendre_symbol_g_p = -1
+				g = -1
 		elif g > p:
 			print("g > p")
 			g = g % p
+			print("revised g:",g)
+
+		elif abs(g) > p and g < 0:
+			print("abs(g) > p and g < 0")
+			g = -(-g % p)
+			print("revised g:",g)
+
+		elif abs(g) < p and g < 0:
+			print("abs(g) < p and g < 0")
+			g = g + p
 			print("revised g:",g)
 
 		#Check for g being square number
@@ -164,9 +193,11 @@ def leg_s_g_p_new(g,p):
 			if result_sqr != 0:
 				print("g:",g,"is square and p does not divide sqrt(",g,")")
 				legendre_symbol_g_p = 1
+				g = 1
 			if result_sqr == 0:
 				print("g:",g,"is square and p divides sqrt(",g,")")
 				legendre_symbol_g_p = 0
+				g = 0
 		
 		#Check for factors of 2
 		elif g % 2 == 0:
@@ -235,7 +266,7 @@ def leg_s_g_p_new(g,p):
 
 			elif g > 3:
 				remainder = int(g / 3)
-				#print("remainder is:",remainder)
+				print("remainder is:",remainder)
 				power = 1
 				#divisible by a factor of 3
 				
@@ -243,7 +274,7 @@ def leg_s_g_p_new(g,p):
 					remainder = remainder / 3		
 					power = power + 1
 
-				#print("power is:",power)
+				print("power is:",power)
 
 				if power == 1:
 					print("divisible by a factor of 3 once")
@@ -285,10 +316,14 @@ def leg_s_g_p_new(g,p):
 						print("revised g:",g)
 
 				elif power % 2 == 1:
-					#power is odd
-					input("Waiting for user - TO DO")
-				
-				print("revised g:",g)
+					#power is odd and not 1, ie power >= 3
+					print("Reducing g:",g,"by",int(3**(power-1)))
+					g = int(g / 3**(power-1))
+					print("revised g:",g)
+
+					#input("Waiting for user - TO DO")
+	
+				#print("revised g:",g)
 				#print("1 --- Legendre_symbol evaluated for g as:",g)
 				#break
 
@@ -373,9 +408,16 @@ def leg_s_g_p_new(g,p):
 		#2, 3 and 5 are not factors of g, g is not square, and quadratic reprocity rule doesn't apply
 		#factorise g
 		else:
-			print("2, 3 and 5 are not factors of:",g,". g:",g," is not square, and quadratic reprocity rule doesn't apply")
-			print("Running factorise_powers(",g,")")
-			result = factorise_powers(g)
+			if g > 0:
+				print("2, 3 and 5 are not factors of:",g,". g:",g," is not square, and quadratic reprocity rule doesn't apply")
+			
+				print("Running factorise_powers(",g,")")
+				result = factorise_powers(g)
+			elif g < 0:
+				print("2, 3 and 5 are not factors of:",-g,". g:",-g," is not square, and quadratic reprocity rule doesn't apply")
+				print("Running factorise_powers(",-g,")")
+				result = factorise_powers(-g)
+
 			#return prime_factors, powers, round(c_calc_primefactors,8), round(c_calc_powers,8), round(total_calc_time,8)
 			prime_factors=result[0]
 			powers=result[1]
@@ -437,7 +479,10 @@ def leg_s_g_p_new(g,p):
 
 			print("legendre_symbol_g_p after product:",legendre_symbol_g_p)
 
-	return g,p
+	if g == 1 or g == -1 or g == 0:
+		return g
+	else:
+		return g,p
 
 def subs_legendre_symbol(leg_symbol,eval):
 				print("-------------------------------------------")
@@ -787,18 +832,19 @@ def factorise_powers(N):
 	#	c_factorisations = result1[1]
 
 	if 0 < len_N <= 10:
+
 	#elif 5 < len_N <= 10:
 		result1 = w235_primefactors_powers_v5.factorise_235wheel(N)
 		#return factors, c_factorisations
 		factors = result1[0]
 		c_factorisations = result1[1]
 
-	#elif 20 < len_N <= 30: #Typical according to Google Gemini
+	elif 20 < len_N <= 30: #Typical according to Google Gemini
 	#	#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits).
-	#	result1 = factorise_pollards_rho(N)
-	#	#return factors, c_factorisations
-	#	factors = result1[0]
-	#	c_factorisations = result1[1]
+		result1 = factorise_pollards_rho(N)
+		#return factors, c_factorisations
+		factors = result1[0]
+		c_factorisations = result1[1]
 
 	#elif 30 < len_N <= 40: #Typical according to Google Gemini
 		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits) before handing the remaining composite over to ECM.
@@ -1089,9 +1135,9 @@ def calc_primefactors_powers(N, factors):
 
 if __name__=='__main__':
 	#main()
-	result = leg_s_g_p_new(2, 1009)
+	#result = leg_s_g_p_new(2, 1009)
 	#result = leg_s_g_p_new(51, 1009)
-	#result = leg_s_g_p_new(513, 100907)
+	result = leg_s_g_p_new(513, 100907)
 
 	print("legendre_symbol_g_p is:",str(result))
 
