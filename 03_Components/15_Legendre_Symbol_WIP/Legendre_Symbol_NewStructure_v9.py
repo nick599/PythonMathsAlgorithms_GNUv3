@@ -98,11 +98,11 @@ def leg_s_g_p_new(g,p):
 
 	while g != 1 and g != -1 and g != 0: 
 
-		print("~~~~~~~~~~~~~~~~~~~~~~~")
+		#print("~~~~~~~~~~~~~~~~~~~~~~~")
 		a = a + 1 
-		print("g is now:",g)
-		print("p is now:",p)
-		print("number of loops:",a)
+		#print("g is now:",g)
+		#print("p is now:",p)
+		#print("number of loops:",a)
 
 		#Check if p and g are prime
 
@@ -117,48 +117,48 @@ def leg_s_g_p_new(g,p):
 			result_g = isprime(-g)		
 
 		if result_p == False:
-			print("p:",p,"is not prime! Legendre symbol undefined!")
+			#print("p:",p,"is not prime! Legendre symbol undefined!")
 			break
 		elif g == 1:
-			print("g = 1")
+			#print("g = 1")
 			legendre_symbol_g_p = 1
 			g = 1
 		elif g % p == 0:
-			print("g % p == 0")
+			#print("g % p == 0")
 			legendre_symbol_g_p = 0
 			g = 0
 		elif g == -1:
-			print("g == -1")
+			#print("g == -1")
 			if p % 4 == 1:
-				print("g=-1 and p mod 4 = 1")			
+				#print("g=-1 and p mod 4 = 1")			
 				legendre_symbol_g_p = 1
 				g = 1
 			elif p % 4 == 3:
-				print("g=-1 and p mod 4 = 3")
+				#print("g=-1 and p mod 4 = 3")
 				legendre_symbol_g_p = -1
 				g = -1			
 		elif g == 2:
-			print("g == 2")
+			#print("g == 2")
 			if p % 8 == 1 or p % 8 == -1:
-				print("g=2 and p mod 8 = +-1")
+				#print("g=2 and p mod 8 = +-1")
 				legendre_symbol_g_p = 1
 				g = 1
 			elif p % 8 == 3 or p % 8 == -3:
-				print("g=2 and p mod 8 = +-3")
+				#print("g=2 and p mod 8 = +-3")
 				legendre_symbol_g_p = -1
 				g = -1
 			else:
-				print("g = 2 and ",p,"mod 8 not 1, -1, 3, or -3")
+				#print("g = 2 and ",p,"mod 8 not 1, -1, 3, or -3")
 				legendre_symbol_g_p = (-1)**((p**2-1)/8)
 				g = legendre_symbol_g_p
 
 		elif g == 3 and p != 3:
 			if p % 12 == 1 or p % 12 == 11:
-				print("g = 3 and",p,"mod 12 = 1 or 11")
+				#print("g = 3 and",p,"mod 12 = 1 or 11")
 				legendre_symbol_g_p = 1
 				g = 1
 			elif p % 12 == 5 or p % 12 == 7:
-				print("g = 3 and ",p,"mod 12 = 5 or 7")
+				#print("g = 3 and ",p,"mod 12 = 5 or 7")
 				legendre_symbol_g_p = -1
 				g = -1
 			#else:
@@ -167,47 +167,47 @@ def leg_s_g_p_new(g,p):
 			#	g = legendre_symbol_g_p
 		elif g==5:
 			if p % 5 == 1 or p % 5 == 4:
-				print("g = 5 and",p,"mod 5 = 1 or 11")
+				#print("g = 5 and",p,"mod 5 = 1 or 11")
 				legendre_symbol_g_p = 1
 			elif p % 5 == 2 or p % 5 == 3:
-				print("g = 5 and ",p,"mod 5 = 2 or 3")
+				#print("g = 5 and ",p,"mod 5 = 2 or 3")
 				legendre_symbol_g_p = -1
 				g = -1
 		elif g > p:
-			print("g > p")
+			#print("g > p")
 			g = g % p
-			print("revised g:",g)
+			#print("revised g:",g)
 
 		elif abs(g) > p and g < 0:
-			print("abs(g) > p and g < 0")
+			#print("abs(g) > p and g < 0")
 			g = -(-g % p)
-			print("revised g:",g)
+			#print("revised g:",g)
 
 		elif abs(g) < p and g < 0:
-			print("abs(g) < p and g < 0")
+			#print("abs(g) < p and g < 0")
 			g = g + p
-			print("revised g:",g)
+			#print("revised g:",g)
 
 		#Check for g being square number
 		elif isSquare(g) == True:
 			result_sqr = math.sqrt(g) % p
 			if result_sqr != 0:
-				print("g:",g,"is square and p does not divide sqrt(",g,")")
+				#print("g:",g,"is square and p does not divide sqrt(",g,")")
 				legendre_symbol_g_p = 1
 				g = 1
 			if result_sqr == 0:
-				print("g:",g,"is square and p divides sqrt(",g,")")
+				#print("g:",g,"is square and p divides sqrt(",g,")")
 				legendre_symbol_g_p = 0
 				g = 0
 		
 		#Check for factors of 2
 		elif g % 2 == 0:
 			#2 is a factor
-			print("2 is a factor of g:",g)
+			#print("2 is a factor of g:",g)
 								
 			i = 2
 			remainder = int(g / 2)
-			print("remainder is:",remainder)
+			#print("remainder is:",remainder)
 			power = 1
 			#divisible by a factor of 2
 				
@@ -215,12 +215,12 @@ def leg_s_g_p_new(g,p):
 				remainder = remainder / 2	
 				power = power + 1
 			
-			print("power of 2 is:",power)
+			#print("power of 2 is:",power)
 
 			if power >= 2:
 				#divisible by a square of 2
 				g = g % 4
-				print("revised g:",g)
+				#print("revised g:",g)
 				
 				input("TO DO - divisible by a square of 2 - waiting for user")
 
@@ -229,15 +229,15 @@ def leg_s_g_p_new(g,p):
 			elif power == 1:
 				#Only has one factor of 2
 				if p % 8 == 1 or p % 8 == -1:
-					print("g=2 and p mod 8 = +-1")
+					#print("g=2 and p mod 8 = +-1")
 					legendre_symbol_g_p = 1
 					g = 1
 				elif p % 8 == 3 or p % 8 == -3:
-					print("g=2 and p mod 8 = +-3")
+					#print("g=2 and p mod 8 = +-3")
 					legendre_symbol_g_p = -1
 					g = -1
 				else:
-					print("g = 2 and ",p,"mod 8 not 1, -1, 3, or -3")
+					#print("g = 2 and ",p,"mod 8 not 1, -1, 3, or -3")
 					legendre_symbol_g_p = (-1)**((p**2-1)/8)
 					g = legendre_symbol_g_p
 				
@@ -246,20 +246,20 @@ def leg_s_g_p_new(g,p):
 		#Check for factors of 3
 		elif g % 3 == 0:
 			#3 is a factor
-			print("3 is a factor of g:",g)
+			#print("3 is a factor of g:",g)
 			
 			if g == 3:
-				print("g = 3")
+				#print("g = 3")
 				if p != 3:
-					print("g = 3 and p != 3")
+					#print("g = 3 and p != 3")
 					#Check mod 12 rules
 					if p % 12 == 5 or p % 12 == 7:
-						print("Using mod 12 rule")
+						#print("Using mod 12 rule")
 						g = -1
 						legendre_symbol_g_p = 1
 
 					elif p % 12 == 1 or p % 12 == 11:
-						print("Using mod 12 rule")
+						#print("Using mod 12 rule")
 						g = 1
 						legendre_symbol_g_p = 1
 					else:
@@ -267,7 +267,7 @@ def leg_s_g_p_new(g,p):
 
 			elif g > 3:
 				remainder = int(g / 3)
-				print("remainder is:",remainder)
+				#print("remainder is:",remainder)
 				power = 1
 				#divisible by a factor of 3
 				
@@ -275,14 +275,14 @@ def leg_s_g_p_new(g,p):
 					remainder = remainder / 3		
 					power = power + 1
 
-				print("power is:",power)
+				#print("power is:",power)
 
 				if power == 1:
-					print("divisible by a factor of 3 once")
+					#print("divisible by a factor of 3 once")
 					#power is 1
 					if p != 3:
 						#Check mod 12 rules
-						print("g = 3 and p != 3. Check mod 12 rules")
+						#print("g = 3 and p != 3. Check mod 12 rules")
 						if p % 12 == 5 or p % 12 == 7:
 							#print("Using mod 12 rule")
 							g = -remainder
@@ -295,7 +295,7 @@ def leg_s_g_p_new(g,p):
 						else:
 							legendre_symbol_g_p = (-1)**math.floor((p+1)/6)
 
-					print("legendre_symbol_g_p:",legendre_symbol_g_p)
+					#print("legendre_symbol_g_p:",legendre_symbol_g_p)
 					#input("Waiting for user - TO DO")
 
 
@@ -305,22 +305,22 @@ def leg_s_g_p_new(g,p):
 					#Check if p divides 3**power
 					if pow(3,power,p) == 0:
 						#p divides 3**power
-						print("p divides 3**power")
+						#print("p divides 3**power")
 						#numerator of legendre symbol becomes 0
 						legendre_symbol_g_p = 0
 
 					else:
 						#p does not divide 3**power
-						print("p does not divide 3**power")
+						#print("p does not divide 3**power")
 						#numerator of legendre symbol is divided by 3**power 
 						g = g / 3**power
-						print("revised g:",g)
+						#print("revised g:",g)
 
 				elif power % 2 == 1:
 					#power is odd and not 1, ie power >= 3
-					print("Reducing g:",g,"by",int(3**(power-1)))
+					#print("Reducing g:",g,"by",int(3**(power-1)))
 					g = int(g / 3**(power-1))
-					print("revised g:",g)
+					#print("revised g:",g)
 
 					#input("Waiting for user - TO DO")
 	
@@ -331,16 +331,16 @@ def leg_s_g_p_new(g,p):
 		#Check for factors of 5
 		elif g % 5 == 0:
 			#5 is a factor
-			print("5 is a factor of g:",g)
-			
+			#print("5 is a factor of g:",g)
+			#
 			if g == 5:
 				if p != 5:
 					#Check mod 5 rules
 					if p % 5 == 1 or p % 5 == 4:
-						print("revised g:",g,"using mod 5 rule")
+						#print("revised g:",g,"using mod 5 rule")
 						g = 1
 					elif p % 5 == 2 or p % 5 == 3:
-						print("revised g:",g,"using mod 5 rule")
+						#print("revised g:",g,"using mod 5 rule")
 						g = -1
 
 			elif g > 5:
@@ -351,9 +351,9 @@ def leg_s_g_p_new(g,p):
 					temp //= 5				
 					power += 1
 
-				print("power is:",power)
+				#print("power is:",power)
 
-				print("revised g:",g)
+				#print("revised g:",g)
 				input("TO DO - waiting for user")
 
 				if power == 1:
@@ -363,20 +363,20 @@ def leg_s_g_p_new(g,p):
 
 				elif power % 2 == 0:
 					#power is even
-					print("divisible by a factor of 5 multiple times")
+					#print("divisible by a factor of 5 multiple times")
 					#Check if p divides 5**power
 					if pow(5,power,p) == 0:
 						#p divides 5**power
-						print("p divides 5**power")
+						#print("p divides 5**power")
 						#numerator of legendre symbol becomes 0
 						legendre_symbol_g_p = 0
 
 					else:
 						#p does not divide 5**power
-						print("p does not divide 5**power")
+						#print("p does not divide 5**power")
 						#numerator of legendre symbol is divided by 5**power 
 						g = g / 5**power
-						print("revised g:",g)
+						#print("revised g:",g)
 
 				elif power % 2 == 1:
 					#power is odd
@@ -387,7 +387,7 @@ def leg_s_g_p_new(g,p):
 		#2, 3 and 5 are not factors of g and g is not square
 		#check for g & p being distinct primes and g > 2
 		elif result_g and result_p and g > 2:
-			print("g, p are prime and g > 2. Use quadratic reprocity law")
+			#print("g, p are prime and g > 2. Use quadratic reprocity law")
 			#quadratic reprocity law
 			power_n = ((g-1)/2)*((p-1)/2) 
 			numerator = (-1)**(power_n)
@@ -401,8 +401,8 @@ def leg_s_g_p_new(g,p):
 				g = -p
 				p = temp
 			
-			print("revised g:",g)
-			print("revised p:",p)
+			#print("revised g:",g)
+			#print("revised p:",p)
 
 			#print("1 ~~~ Revised legendre_symbol after mod 4 rule:",leg_symbol)
 
@@ -410,19 +410,19 @@ def leg_s_g_p_new(g,p):
 		#factorise g
 		else:
 			if g > 0:
-				print("2, 3 and 5 are not factors of:",g,". g:",g," is not square, and quadratic reprocity rule doesn't apply")
+				#print("2, 3 and 5 are not factors of:",g,". g:",g," is not square, and quadratic reprocity rule doesn't apply")
 			
-				print("Running factorise_powers(",g,")")
+				#print("Running factorise_powers(",g,")")
 				result = factorise_powers(g)
 			elif g < 0:
-				print("2, 3 and 5 are not factors of:",-g,". g:",-g," is not square, and quadratic reprocity rule doesn't apply")
-				print("Running factorise_powers(",-g,")")
+				#print("2, 3 and 5 are not factors of:",-g,". g:",-g," is not square, and quadratic reprocity rule doesn't apply")
+				#print("Running factorise_powers(",-g,")")
 				result = factorise_powers(-g)
 
 			#return prime_factors, powers, round(c_calc_primefactors,8), round(c_calc_powers,8), round(total_calc_time,8)
 			prime_factors=result[0]
 			powers=result[1]
-			print("prime_factors:",prime_factors,"powers:",powers)
+			#print("prime_factors:",prime_factors,"powers:",powers)
 
 			powers_new=[]
 			for power in powers:
@@ -431,7 +431,7 @@ def leg_s_g_p_new(g,p):
 				else:
 					powers_new.append(power)
 
-			print("powers mod 2:",powers_new)
+			#print("powers mod 2:",powers_new)
 
 			leg_symbols=[]
 			c=0
@@ -448,24 +448,24 @@ def leg_s_g_p_new(g,p):
 					leg_symbols.append(leg_temp)
 				c=c+1
 
-			print("subsidary legendre_symbols to calculate:",leg_symbols)
+			#print("subsidary legendre_symbols to calculate:",leg_symbols)
 		
 			#check if 2 is numerator in any legendre symbol
 			#if yes calc (2/p) legendre symbol
 			if leg_symbols[0][0] == 2:
 				if p % 8 == 1 or p % 8 == -1:
-					print("g=2 and p mod 8 = +-1")
+					#print("g=2 and p mod 8 = +-1")
 					leg_symbols[0][2]=1
 				elif p % 8 == 3 or p % 8 == -3:
-					print("g=2 and p mod 8 = +-3")
+					#print("g=2 and p mod 8 = +-3")
 					leg_symbols[0][2]=-1
-				print("Revised legendre_symbols to calculate after consideration of first subsidary:",leg_symbols)
+				#print("Revised legendre_symbols to calculate after consideration of first subsidary:",leg_symbols)
 
 			#now evaluate each subsidary leg_symbol
 			for leg_symbol in leg_symbols:
 				eval=False
 				if leg_symbol[2]!=0:
-					print("leg_symbol[2]!=0")
+					#print("leg_symbol[2]!=0")
 					eval=True
 					break
 				elif leg_symbol[2]==0:
@@ -478,7 +478,7 @@ def leg_s_g_p_new(g,p):
 			for leg_symbol in leg_symbols:
 				legendre_symbol_g_p=legendre_symbol_g_p * leg_symbol[2]
 
-			print("legendre_symbol_g_p after product:",legendre_symbol_g_p)
+			#print("legendre_symbol_g_p after product:",legendre_symbol_g_p)
 
 	if g == 1 or g == -1 or g == 0:
 		return g
@@ -486,31 +486,31 @@ def leg_s_g_p_new(g,p):
 		return g,p
 
 def subs_legendre_symbol(leg_symbol,eval):
-				print("-------------------------------------------")
-				print("Working on subsidary legendre_symbol:",leg_symbol)
+				#print("-------------------------------------------")
+				#print("Working on subsidary legendre_symbol:",leg_symbol)
 				a=0
 				while eval==False:				
 					a=a+1
-					print("a:",a)
+					#print("a:",a)
 					if not (leg_symbol[0] == -1 or leg_symbol[0] == 1 or leg_symbol[0] == 0):
-						print("leg_symbol[0] now:",leg_symbol[0])
+						#print("leg_symbol[0] now:",leg_symbol[0])
 						if leg_symbol[1] >=2:
 							#Check for factors of 2
 							if leg_symbol[1] % 2 == 0:
 								#2 is a factor
-								print("2 is a factor of leg_symbol[1]")
+								#print("2 is a factor of leg_symbol[1]")
 								
 								i = 2
 								power = 1
 								while i*i < leg_symbol[1]:
 									power = power + 1
-								print("power of 2 is:",power)
+								#print("power of 2 is:",power)
 
 								if power % 2 == 0:
 									#divisible by a square of 2
 									if 2 % leg_symbol[1] == 0:
 										leg_symbol[2] = 1
-										print("1 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+										#print("1 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 										eval=True
 										break
 								elif power % 2 == 1:
@@ -521,7 +521,7 @@ def subs_legendre_symbol(leg_symbol,eval):
 							#Check if leg_symbol[1] is a square number
 							if isSquare(leg_symbol[1]):
 								leg_symbol[2] = 1
-								print("2 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+								#print("2 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 								eval=True
 								break
 
@@ -541,65 +541,65 @@ def subs_legendre_symbol(leg_symbol,eval):
 										temp=leg_symbol[0]
 										leg_symbol[0]=-leg_symbol[1]
 										leg_symbol[1]=temp
-								print("1 ~~~ Revised legendre_symbol after mod 4 rule:",leg_symbol)
+								#print("1 ~~~ Revised legendre_symbol after mod 4 rule:",leg_symbol)
 
 					diff = leg_symbol[0] - leg_symbol[1]
 					#print("Diff:",diff)
 
 					if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-						print("b = 1 ============================")
+						#print("b = 1 ============================")
 						#print("Leg_symbol[0] == 1 or leg_symbol[0] == -1")
 						#print("Leg_symbol[0]:",leg_symbol[0])
 						leg_symbol[2] = leg_symbol[0]
-						print("3 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+						#print("3 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 						eval=True
 						break
 					elif diff == 1:
-						print("b = 2 ============================")
+						#print("b = 2 ============================")
 						#print("Diff = 1")
 						#print("Leg_symbol[0]:",leg_symbol[0])
 						leg_symbol[2] = 1
-						print("3 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+						#print("3 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 						eval=True
 						break
 					elif diff == -1:
-						print("b = 3 ============================")
+						#print("b = 3 ============================")
 						#print("diff = -1")
 						#print("Leg_symbol[0]:",leg_symbol[0])
 						leg_symbol[2] = -1
-						print("4 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+						#print("4 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 						eval=True
 						break
 					elif leg_symbol[0] > 1 and leg_symbol[1] > 1 and leg_symbol[0] > leg_symbol[1]:
-						print("b = 4 ============================")
+						#print("b = 4 ============================")
 						#print("Leg_symbol[0] > 1 and leg_symbol[1] > 1 and leg_symbol[0] > leg_symbol[1]")
 						print("Leg_symbol[0]:",leg_symbol[0])
 						print("Leg_symbol[1]:",leg_symbol[1])
 
 						#mod reduce leg_symbol[0]
 						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
-						print("2 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
+						#print("2 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
 						
 						diff = leg_symbol[0] - leg_symbol[1]
 						#print("Diff:",diff)
 						
 						if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-							print("b = 4a ============================")
+							#print("b = 4a ============================")
 							leg_symbol[2] = leg_symbol[0]
-							print("5 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+							#print("5 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 							eval=True
 							break
 						elif diff == 1 or diff == -1:
-							print("b = 4b ============================")
+							#print("b = 4b ============================")
 							leg_symbol[2] = diff
-							print("6 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+							#print("6 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 							eval=True
 							break
 						elif leg_symbol[0] > leg_symbol[1]:
-							print("b = 5c ============================")
+							#print("b = 5c ============================")
 							#mod reduce leg_symbol[1]
 							leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
-							print("3 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
+							#print("3 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
 
 						#if diff == -1:
 						#	print("b = 4c ============================")
@@ -609,39 +609,39 @@ def subs_legendre_symbol(leg_symbol,eval):
 						#	break
 
 					elif leg_symbol[0] > 1 and leg_symbol[1] > 1 and leg_symbol[0] < leg_symbol[1]:
-						print("b = 5 ============================")
+						#print("b = 5 ============================")
 						#print("Leg_symbol[0] > 1 and leg_symbol[1] > 1 and leg_symbol[0] < leg_symbol[1]")
 						
-						print("Leg_symbol[0]:",leg_symbol[0])
-						print("Leg_symbol[1]:",leg_symbol[1])
+						#print("Leg_symbol[0]:",leg_symbol[0])
+						#print("Leg_symbol[1]:",leg_symbol[1])
 
 						#print("TO DO")
 						#input("Waiting for user..")
 
 						#mod reduce leg_symbol[0]
 						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
-						print("4 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
+						#print("4 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
 						
 						diff = leg_symbol[0] - leg_symbol[1]
 						#print("Diff:",diff)
 						
 						if leg_symbol[0] == 1 or leg_symbol[0] == -1:
-							print("b = 5a ============================")
+							#print("b = 5a ============================")
 							leg_symbol[2] = leg_symbol[0]
-							print("7 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+							#print("7 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 							eval=True
 							break
 						elif diff == 1 or diff == -1:
-							print("b = 5b ============================")
+							#print("b = 5b ============================")
 							leg_symbol[2] = diff
-							print("8 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+							#print("8 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 							eval=True
 							break
 						elif leg_symbol[0] > leg_symbol[1]:
-							print("b = 5c ============================")
+							#print("b = 5c ============================")
 							#mod reduce leg_symbol[1]
 							leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
-							print("5 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
+							#print("5 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
 
 
 					#elif leg_symbol[0] > 1:
@@ -678,68 +678,68 @@ def subs_legendre_symbol(leg_symbol,eval):
 					#			#break
 					
 					elif leg_symbol[0] == 1 or leg_symbol[0] == -1:
-						print("b = 8 ============================")
-						print("Leg_symbol[0] is 1 or -1")
+						#print("b = 8 ============================")
+						#print("Leg_symbol[0] is 1 or -1")
 						leg_symbol[2] = leg_symbol[0]
-						print("9 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+						#print("9 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 						eval=True
 						break
 					elif leg_symbol[0] > 1:
-						print("Leg_symbol[0]",leg_symbol[0],"is > 1")
+						#print("Leg_symbol[0]",leg_symbol[0],"is > 1")
 						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
-						print("6 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
+						#print("6 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
 
 					if not leg_symbol[0] == 1:
 						if leg_symbol[1] >=2:
 							if isprime(leg_symbol[0]) and leg_symbol[0] > 2:
 								#mod 4 rules
 								if leg_symbol[0] % 4 == 1:
-									print("leg_symbol[0] % 4 == 1")
+									#print("leg_symbol[0] % 4 == 1")
 									temp=leg_symbol[0]
 									leg_symbol[0]=leg_symbol[1]
 									leg_symbol[1]=temp
 								elif leg_symbol[1] % 4 == 1:
-									print("leg_symbol[1] % 4 == 1")
+									#print("leg_symbol[1] % 4 == 1")
 									temp=leg_symbol[0]
 									leg_symbol[0]=leg_symbol[1]
 									leg_symbol[1]=temp
 								elif leg_symbol[0] % 4 == 3:
 									if leg_symbol[1] % 4 == 3:
-										print("leg_symbol[1] % 4 == 3")
+										#print("leg_symbol[1] % 4 == 3")
 										temp=leg_symbol[0]
 										leg_symbol[0]=-leg_symbol[1]
 										leg_symbol[1]=temp
-								print("7 ~~~ Revised legendre_symbol after mod 4 rule:",leg_symbol)
+								#print("7 ~~~ Revised legendre_symbol after mod 4 rule:",leg_symbol)
 
 							elif leg_symbol[0] == 2 and isprime(leg_symbol[1]):
-								print("c = 1 ++++++++++++")
-								print("Leg_symbol[0] == 2 and isprime(",leg_symbol[1],") == True")
+								#print("c = 1 ++++++++++++")
+								#print("Leg_symbol[0] == 2 and isprime(",leg_symbol[1],") == True")
 								if leg_symbol[1] % 8 == 1 or leg_symbol[1] % 8 == 7: 
 									leg_symbol[2] = 1
-									print("10 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+									#print("10 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
 								elif leg_symbol[1] % 8 == 3 or leg_symbol[1] % 8 == 5: 
 									leg_symbol[2] = -1
-									print("11 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+									#print("11 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
 								else: 
 									leg_symbol[2] = (-1)**((leg_symbol[1]**2 - 1) // 8)
-									print("12 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+									#print("12 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
 							elif leg_symbol[0] == 3 and isprime(leg_symbol[1]) and leg_symbol[2] != 3:
-								print("c = 2 ++++++++++++")
-								print("Leg_symbol[0] == 3 and isprime(",leg_symbol[1],") == True",leg_symbol[2],"!= 3")
+								#print("c = 2 ++++++++++++")
+								#print("Leg_symbol[0] == 3 and isprime(",leg_symbol[1],") == True",leg_symbol[2],"!= 3")
 								if leg_symbol[1] % 12 == 5 or leg_symbol[1] % 12 == 7: 
 									leg_symbol[2] = -1
-									print("13 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+									#print("13 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
 								elif leg_symbol[1] % 12 == 1 or leg_symbol[1] % 12 == 11: 
 									leg_symbol[2] = 1
-									print("14 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+									#print("14 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
 								#else: 
@@ -753,21 +753,21 @@ def subs_legendre_symbol(leg_symbol,eval):
 							#	print("Undefined as",leg_symbol[1],"is not prime")
 
 							else:
-								print("c = 3 ++++++++++++")
-								print("Running factorise_powers(",leg_symbol[0],")")
+								#print("c = 3 ++++++++++++")
+								#print("Running factorise_powers(",leg_symbol[0],")")
 								
-								prime_factors_ls, powers_ls = factorise_powers(leg_symbol[0])[:2]
+								#prime_factors_ls, powers_ls = factorise_powers(leg_symbol[0])[:2]
     
     								# Evaluate each prime factor component according to its odd/even power parity
 								sub_product = 1
-    								for pf, pow_val in zip(prime_factors_ls, powers_ls):
-        								if pow_val % 2 == 1:
-									# Recurse or evaluate symbol for individual prime factor pf over leg_symbol[1]
+								for pf, pow_val in zip(prime_factors_ls, powers_ls):
+									if pow_val % 2 == 1:
+									#Recurse or evaluate symbol for individual prime factor pf over leg_symbol[1]
 										sub_res, _ = subs_legendre_symbol([pf, leg_symbol[1], 0], False)
 										sub_product *= sub_res[2]
             
-    								leg_symbol[2] = sub_product
-    								eval = True
+								leg_symbol[2] = sub_product
+								eval = True
 								break
 
 								#result_ls = factorise_powers(leg_symbol[0])
@@ -789,41 +789,41 @@ def subs_legendre_symbol(leg_symbol,eval):
 								#input("Waiting for user..")
 
 					if leg_symbol[0] == 1:
-						print("b = 9 ============================")
-						print("leg_symbol[0] == 1 or leg_symbol[0] == -1")
+						#print("b = 9 ============================")
+						#print("leg_symbol[0] == 1 or leg_symbol[0] == -1")
 						leg_symbol[2] = leg_symbol[0]
-						print("16 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+						#print("16 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 						eval=True
 						break
 					elif leg_symbol[0] == -1:
-						print("b = 10 ============================")
-						print("leg_symbol[0] == -1")
+						#print("b = 10 ============================")
+						#print("leg_symbol[0] == -1")
 						leg_symbol[2] = leg_symbol[0]
-						print("17 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+						#print("17 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 						eval=True
 						#break
 					elif leg_symbol[0] > 1:
-						print("leg_symbol[0] > 1")
+						#print("leg_symbol[0] > 1")
 						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
-						print("8 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)		
+						#print("8 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)		
 
 					if leg_symbol[0] != 1:
 						if leg_symbol[0] != -1:		
-							print("leg_symbol[0] not 1 nor -1")
+							#print("leg_symbol[0] not 1 nor -1")
 							#mod reduce leg_symbol[0]
 							leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
-							print("9 ~~~ Revised legendre_symbol after mod", leg_symbol[1],":",leg_symbol)
+							#print("9 ~~~ Revised legendre_symbol after mod", leg_symbol[1],":",leg_symbol)
 					elif leg_symbol[0] == 1 or leg_symbol[0] == -1:
-						print("b = 11 ============================")
-						print("leg_symbol[0] == 1 or == -1")
+						#print("b = 11 ============================")
+						#print("leg_symbol[0] == 1 or == -1")
 						leg_symbol[2] = leg_symbol[0]
-						print("18 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+						#print("18 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 						eval=True
 						break
 					elif leg_symbol[0] > 1:
-						print("leg_symbol[0] > 1")
+						#print("leg_symbol[0] > 1")
 						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
-						print("10 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
+						#print("10 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
 
 				return leg_symbol, eval
 
@@ -1059,7 +1059,7 @@ def isprime(p):
 	#Checks for divisibility by factors upto sqrt(n)
 	#Likely to be O(sqrt(n))
 	
-	print("Running isprime(", str(p), ").. [Cached Lookup]")
+	#print("Running isprime(", str(p), ").. [Cached Lookup]")
 	# www.rookieslab.com/posts/fastest-way-to-check-if-a-number-is-prime-or-not
 	if p <= 1:
 		return False	
@@ -1085,7 +1085,7 @@ def is_primitive_root(g, p):
 	#Step 1: Get the unique prime factors of phi(p) which is p-1
 	totient = p - 1
 	prime_factors = get_unique_prime_factors(totient)
-	print("prime factors of p-1:",prime_factors)
+	#print("prime factors of p-1:",prime_factors)
 
 	# Step 2: Test powers
 	for q in prime_factors:
