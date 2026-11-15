@@ -160,10 +160,10 @@ def leg_s_g_p_new(g,p):
 				print("g = 3 and ",p,"mod 12 = 5 or 7")
 				legendre_symbol_g_p = -1
 				g = -1
-			else:
-				print("g = 3 and ",p,"mod 12 not 5 or 7")
-				legendre_symbol_g_p = (-1)**math.floor((p+1)/6)
-				g = legendre_symbol_g_p
+			#else:
+			#	print("g = 3 and ",p,"mod 12 not 5 or 7")
+			#	legendre_symbol_g_p = (-1)**math.floor((p+1)/6)
+			#	g = legendre_symbol_g_p
 		elif g==5:
 			if p % 5 == 1 or p % 5 == 4:
 				print("g = 5 and",p,"mod 5 = 1 or 11")
@@ -741,10 +741,10 @@ def subs_legendre_symbol(leg_symbol,eval):
 									print("14 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
-								else: 
-									leg_symbol[2] = (-1)**((leg_symbol[1]**2 - 1) // 8)
-									print("15 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
-									break
+								#else: 
+								#	leg_symbol[2] = (-1)**math.floor(2*leg_symbol[1] + 2) // 5)
+								#	print("15 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
+								#	break
 
 							#elif leg_symbol[0] == 2:
 							#	print("c = 3 ++++++++++++")
