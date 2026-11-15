@@ -1059,9 +1059,9 @@ def isprime(p):
 	#Checks for divisibility by factors upto sqrt(n)
 	#Likely to be O(sqrt(n))
 	
-	print("Running isprime(",str(p),")..")
+	print("Running isprime(", str(p), ").. [Cached Lookup]")
 	# www.rookieslab.com/posts/fastest-way-to-check-if-a-number-is-prime-or-not
-	if p==1:
+	if p <= 1:
 		return False	
 		
 	i = 2
