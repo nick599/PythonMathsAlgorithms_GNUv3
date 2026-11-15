@@ -73,7 +73,7 @@ import Diff_of_Squares_v12_OnHold
 import isprime_trialdivision_v3
 #import AKS_primality_test_v12_Win11
 	
-def main():
+def main(g, p):
 	
 	result = leg_s_g_p_new(g, p)
 
@@ -189,7 +189,7 @@ def leg_s_g_p_new(g,p):
 
 		#Check for g being square number
 		elif isSquare(g) == True:
-			result_sqr = sqrt(g) % p
+			result_sqr = math.sqrt(g) % p
 			if result_sqr != 0:
 				print("g:",g,"is square and p does not divide sqrt(",g,")")
 				legendre_symbol_g_p = 1
@@ -248,17 +248,17 @@ def leg_s_g_p_new(g,p):
 			print("3 is a factor of g:",g)
 			
 			if g == 3:
-				Print("g = 3")
+				print("g = 3")
 				if p != 3:
-					Print("g = 3 and p != 3")
+					print("g = 3 and p != 3")
 					#Check mod 12 rules
 					if p % 12 == 5 or p % 12 == 7:
-						Print("Using mod 12 rule")
+						print("Using mod 12 rule")
 						g = -1
 						legendre_symbol_g_p = 1
 
 					elif p % 12 == 1 or p % 12 == 11:
-						Print("Using mod 12 rule")
+						print("Using mod 12 rule")
 						g = 1
 						legendre_symbol_g_p = 1
 					else:
@@ -346,11 +346,11 @@ def leg_s_g_p_new(g,p):
 				temp = g
 				power = 1
 				#divisible by a factor of 5
-				while temp / 5 != 1:
-					temp = temp / 5				
-					power = power + 1
+				while temp % 5 == 0 and temp > 1:
+					temp // 5				
+					power += 1
 
-				Print("power is:",power)
+				print("power is:",power)
 
 				print("revised g:",g)
 				input("TO DO - waiting for user")
@@ -724,7 +724,7 @@ def subs_legendre_symbol(leg_symbol,eval):
 									break
 
 								else: 
-									leg_symbol[2] = (-1)**(p^2 / 8)
+									leg_symbol[2] = (-1)**(p**2 / 8)
 									print("12 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
