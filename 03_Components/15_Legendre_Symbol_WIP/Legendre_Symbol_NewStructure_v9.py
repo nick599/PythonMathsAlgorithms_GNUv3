@@ -26,6 +26,7 @@ import itertools
 import csv
 import time
 import functools
+import gmpy2
 
 # Add the absolute path of the target folder(s) to Python's search path
 factorise_folder_path = os.path.abspath('/03_Components/01_Factorising')
@@ -301,7 +302,7 @@ def leg_s_g_p_new(g,p):
 
 				elif power % 2 == 0:
 					#power is even
-					print("divisible by a factor of 3 multiple times")
+					#print("divisible by a factor of 3 multiple times")
 					#Check if p divides 3**power
 					if pow(3,power,p) == 0:
 						#p divides 3**power
@@ -473,7 +474,7 @@ def leg_s_g_p_new(g,p):
 
 
 			#loop through all subsidary leg_symbols and calculate final legendre symbol
-			print("-------------------------------------------")
+			#print("-------------------------------------------")
 			legendre_symbol_g_p=1
 			for leg_symbol in leg_symbols:
 				legendre_symbol_g_p=legendre_symbol_g_p * leg_symbol[2]
@@ -573,8 +574,8 @@ def subs_legendre_symbol(leg_symbol,eval):
 					elif leg_symbol[0] > 1 and leg_symbol[1] > 1 and leg_symbol[0] > leg_symbol[1]:
 						#print("b = 4 ============================")
 						#print("Leg_symbol[0] > 1 and leg_symbol[1] > 1 and leg_symbol[0] > leg_symbol[1]")
-						print("Leg_symbol[0]:",leg_symbol[0])
-						print("Leg_symbol[1]:",leg_symbol[1])
+						#print("Leg_symbol[0]:",leg_symbol[0])
+						#print("Leg_symbol[1]:",leg_symbol[1])
 
 						#mod reduce leg_symbol[0]
 						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
@@ -1017,6 +1018,13 @@ def factorise_235wheel(N):
 
 
 
+# Replace standard isprime or gcd with gmpy2's highly optimized C functions:
+def isprime_fast(p):
+    return gmpy2.is_prime(int(p))
+
+def gcd_fast(a, b):
+    return int(gmpy2.gcd(a, b))
+
 def isSquare(N):
 	#Checks for divisibility by square numbers giving remainder of 1
 	if N==1:
@@ -1054,7 +1062,7 @@ def mod_divide(a: int, b: int, m: int) -> int:
 		print(f"Warning: Division by {b} mod {m} failed (not coprime).")
 		return None
 
-@functools.lru_cache(maxsize=1024)
+@functools.lru_cache(maxsize=4096)
 def isprime(p):		
 	#Checks for divisibility by factors upto sqrt(n)
 	#Likely to be O(sqrt(n))
@@ -1062,13 +1070,19 @@ def isprime(p):
 	#print("Running isprime(", str(p), ").. [Cached Lookup]")
 	# www.rookieslab.com/posts/fastest-way-to-check-if-a-number-is-prime-or-not
 	if p <= 1:
+		return False
+
+	if p = 2:
+		return True
+
+	if p % 2 == 0:
 		return False	
 		
-	i = 2
+	i = 3
 	while i*i <= p:
 		if p % i == 0:
 			return False
-		i += 1
+		i += 2 #Skip even numbers
 
 	return True
 
