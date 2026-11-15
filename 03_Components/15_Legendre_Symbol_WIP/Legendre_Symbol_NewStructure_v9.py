@@ -25,6 +25,7 @@ except:
 import itertools
 import csv
 import time
+import functools
 
 # Add the absolute path of the target folder(s) to Python's search path
 factorise_folder_path = os.path.abspath('/03_Components/01_Factorising')
@@ -1053,6 +1054,7 @@ def mod_divide(a: int, b: int, m: int) -> int:
 		print(f"Warning: Division by {b} mod {m} failed (not coprime).")
 		return None
 
+@functools.lru_cache(maxsize=1024)
 def isprime(p):		
 	#Checks for divisibility by factors upto sqrt(n)
 	#Likely to be O(sqrt(n))
@@ -1075,6 +1077,10 @@ def is_primitive_root(g, p):
 	#Time Complexity: O(sqrt(p) + log(p)) due to factorization.
 	if g <= 1 or g >= p:
     		return False
+
+	#Coprime check. If g and p share a factor, it's not a primitive root.
+	if math.gcd(g,p) != 1:
+		return False
 
 	#Step 1: Get the unique prime factors of phi(p) which is p-1
 	totient = p - 1
