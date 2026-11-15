@@ -1,14 +1,14 @@
 print("Legendre_Symbol_factorisations_v7.py")
 print("Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.")
-print("Version 8. 12/10/2026.")
+print("Version 9. 15/11/2026.")
 print("Programmed & tested in Python 3 only")
 print("This program works out the Legendre Symbol of two numbers g & p specified by user.")
 print("It has been tested on Windows 11 Home x64")
-print("Testing results .... of xxx in xxx seconds.")
+#print("Testing results .... of xxx in xxx seconds.")
 print("---------------------------------------------------------------------")
 
 #Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.
-#Version 8. 12/10/2026.
+#Version 9. 15/11/2026.
 #Programmed & tested in Python 3 only
 #This program works out the Legendre Symbol of two numbers g & p specified by user.
 #It has been tested on Windows 11 Home x64
@@ -1028,6 +1028,30 @@ def isSquare(N):
 		i += 1
 
 	return False
+
+def mod_inverse(a: int, m: int) -> int:
+	"""
+	Computes the modular multiplicative inverse of a modulo m 
+	using Python's native, C-optimized built-in pow().
+	Raises ValueError if the inverse does not exist.
+	"""
+	try:
+		return pow(a, -1, m)
+	except ValueError:
+		raise ValueError(f"Modular inverse does not exist: {a} and modulus {m} are not coprime.")
+
+def mod_divide(a: int, b: int, m: int) -> int:
+	"""
+	Computes (a / b) modulo m safely using the built-in modular inverse.
+	Equivalent to (a * b^(-1)) % m.
+	"""
+	try:
+        	#Utilizing Python's built-in pow(b, -1, m) for the inverse
+		inverse_b = pow(b, -1, m)
+		return (a * inverse_b) % m
+	except ValueError:
+		print(f"Warning: Division by {b} mod {m} failed (not coprime).")
+		return None
 
 def isprime(p):		
 	#Checks for divisibility by factors upto sqrt(n)
