@@ -347,7 +347,7 @@ def leg_s_g_p_new(g,p):
 				power = 1
 				#divisible by a factor of 5
 				while temp % 5 == 0 and temp > 1:
-					temp // 5				
+					temp //= 5				
 					power += 1
 
 				print("power is:",power)
@@ -468,7 +468,7 @@ def leg_s_g_p_new(g,p):
 					eval=True
 					break
 				elif leg_symbol[2]==0:
-					result = subs_legendre_symbol(leg_symbol,eval)
+					leg_symbol, eval = subs_legendre_symbol(leg_symbol,eval)
 
 
 			#loop through all subsidary leg_symbols and calculate final legendre symbol
@@ -742,7 +742,7 @@ def subs_legendre_symbol(leg_symbol,eval):
 									break
 
 								else: 
-									leg_symbol[2] = (-1)**(p^2 / 8)
+									leg_symbol[2] = (-1)**(p**2 / 8)
 									print("15 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
@@ -813,7 +813,7 @@ def subs_legendre_symbol(leg_symbol,eval):
 						leg_symbol[0] = leg_symbol[0] % leg_symbol[1]
 						print("10 ~~~ Revised legendre_symbol after mod",leg_symbol[1],":",leg_symbol)
 
-					return leg_symbol, eval
+				return leg_symbol, eval
 
 def factorise_powers(N):
 
