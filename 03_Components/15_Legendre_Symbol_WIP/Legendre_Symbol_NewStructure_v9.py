@@ -1064,27 +1064,34 @@ def mod_divide(a: int, b: int, m: int) -> int:
 
 @functools.lru_cache(maxsize=4096)
 def isprime(p):		
-	#Checks for divisibility by factors upto sqrt(n)
-	#Likely to be O(sqrt(n))
-	
-	#print("Running isprime(", str(p), ").. [Cached Lookup]")
-	# www.rookieslab.com/posts/fastest-way-to-check-if-a-number-is-prime-or-not
+	# C-optimized primality test via gmpy2
 	if p <= 1:
 		return False
+	return bool(gmpy2.is_prime(int(p)))
 
-	if p == 2:
-		return True
+#@functools.lru_cache(maxsize=4096)
+#def isprime(p):		
+#	#Checks for divisibility by factors upto sqrt(n)
+#	#Likely to be O(sqrt(n))
+	
+#	#print("Running isprime(", str(p), ").. [Cached Lookup]")
+#	# www.rookieslab.com/posts/fastest-way-to-check-if-a-number-is-prime-or-not
+#	if p <= 1:
+#		return False
 
-	if p % 2 == 0:
+#	if p == 2:
+#		return True
+
+#	if p % 2 == 0:
 		return False	
 		
-	i = 3
-	while i*i <= p:
-		if p % i == 0:
-			return False
-		i += 2 #Skip even numbers
+#	i = 3
+#	while i*i <= p:
+#		if p % i == 0:
+#			return False
+#		i += 2 #Skip even numbers
 
-	return True
+#	return True
 
 def is_primitive_root(g, p):
 	#Efficiently checks if g is a primitive root modulo p.
@@ -1093,7 +1100,7 @@ def is_primitive_root(g, p):
     		return False
 
 	#Coprime check. If g and p share a factor, it's not a primitive root.
-	if math.gcd(g,p) != 1:
+	if int(gmpy2.gcd(g, p)) != 1:
 		return False
 
 	#Step 1: Get the unique prime factors of phi(p) which is p-1
@@ -1108,6 +1115,29 @@ def is_primitive_root(g, p):
 			return False  # Failed the test; g loops too early
             
 	return True  # Passed all tests; g is a primitive root
+
+#def is_primitive_root(g, p):
+#	#Efficiently checks if g is a primitive root modulo p.
+#	#Time Complexity: O(sqrt(p) + log(p)) due to factorization.
+#	if g <= 1 or g >= p:
+#    		return False
+
+#	#Coprime check. If g and p share a factor, it's not a primitive root.
+#	if math.gcd(g,p) != 1:
+#		return False
+
+#	#Step 1: Get the unique prime factors of phi(p) which is p-1
+#	totient = p - 1
+#	prime_factors = get_unique_prime_factors(totient)
+#	#print("prime factors of p-1:",prime_factors)
+
+#	# Step 2: Test powers
+#	for q in prime_factors:
+#		test_exponent = totient // q
+#		if pow(g, test_exponent, p) == 1:
+#			return False  # Failed the test; g loops too early
+            
+#	return True  # Passed all tests; g is a primitive root
 
 def get_unique_prime_factors(n):
     #Finds all unique prime factors of a number n
