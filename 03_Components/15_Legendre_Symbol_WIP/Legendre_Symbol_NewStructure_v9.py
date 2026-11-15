@@ -754,27 +754,38 @@ def subs_legendre_symbol(leg_symbol,eval):
 							else:
 								print("c = 3 ++++++++++++")
 								print("Running factorise_powers(",leg_symbol[0],")")
-								result_ls = factorise_powers(leg_symbol[0])
+								
+								prime_factors_ls, powers_ls = factorise_powers(leg_symbol[0])[:2]
+    
+    								# Evaluate each prime factor component according to its odd/even power parity
+								sub_product = 1
+    								for pf, pow_val in zip(prime_factors_ls, powers_ls):
+        								if pow_val % 2 == 1:
+									# Recurse or evaluate symbol for individual prime factor pf over leg_symbol[1]
+										sub_res, _ = subs_legendre_symbol([pf, leg_symbol[1], 0], False)
+										sub_product *= sub_res[2]
+            
+    								leg_symbol[2] = sub_product
+    								eval = True
+								break
+
+								#result_ls = factorise_powers(leg_symbol[0])
 								#return prime_factors, powers, round(c_calc_primefactors,8), round(c_calc_powers,8), round(total_calc_time,8)
-								prime_factors_ls =result_ls[0]
-								powers_ls = result_ls[1]
-								print(result_ls)
+								#prime_factors_ls =result_ls[0]
+								#powers_ls = result_ls[1]
+								#print(result_ls)
 
-								powers_new_ls=[]
-								for power_ls in powers_ls:
-									if power_ls >=2:
-										powers_new_ls.append(power_ls % 2)
-									else:
-										powers_new_ls.append(power_ls)
+								#powers_new_ls=[]
+								#for power_ls in powers_ls:
+								#	if power_ls >=2:
+								#		powers_new_ls.append(power_ls % 2)
+								#	else:
+								#		powers_new_ls.append(power_ls)
 
-								print("powers_ls mod 2:",powers_new_ls)
+								#print("powers_ls mod 2:",powers_new_ls)
 
-
-
-
-
-								print("TO DO") ##TO DO
-								input("Waiting for user..")
+								#print("TO DO") ##TO DO
+								#input("Waiting for user..")
 
 					if leg_symbol[0] == 1:
 						print("b = 9 ============================")
