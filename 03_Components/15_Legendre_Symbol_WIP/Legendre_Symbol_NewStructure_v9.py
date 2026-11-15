@@ -724,14 +724,14 @@ def subs_legendre_symbol(leg_symbol,eval):
 									break
 
 								else: 
-									leg_symbol[2] = (-1)**(p**2 / 8)
+									leg_symbol[2] = (-1)**((leg_symbol[1]**2 - 1) // 8)
 									print("12 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
 							elif leg_symbol[0] == 3 and isprime(leg_symbol[1]) and leg_symbol[2] != 3:
 								print("c = 2 ++++++++++++")
 								print("Leg_symbol[0] == 3 and isprime(",leg_symbol[1],") == True",leg_symbol[2],"!= 3")
-								if leg_symbol[1] % 8 == 1 or leg_symbol[1] % 8 == 7: 
+								if leg_symbol[1] % 12 == 5 or leg_symbol[1] % 12 == 7: 
 									leg_symbol[2] = -1
 									print("13 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
@@ -742,7 +742,7 @@ def subs_legendre_symbol(leg_symbol,eval):
 									break
 
 								else: 
-									leg_symbol[2] = (-1)**(p**2 / 8)
+									leg_symbol[2] = (-1)**(leg_symbol[1]**2 / 8)
 									print("15 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
