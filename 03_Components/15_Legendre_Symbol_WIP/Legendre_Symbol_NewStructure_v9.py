@@ -742,7 +742,7 @@ def subs_legendre_symbol(leg_symbol,eval):
 									break
 
 								else: 
-									leg_symbol[2] = (-1)**(leg_symbol[1]**2 / 8)
+									leg_symbol[2] = (-1)**((leg_symbol[1]**2 - 1) // 8)
 									print("15 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
