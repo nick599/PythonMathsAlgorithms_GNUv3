@@ -730,7 +730,7 @@ def subs_legendre_symbol(leg_symbol,eval):
 
 							elif leg_symbol[0] == 3 and isprime(leg_symbol[1]) and leg_symbol[2] != 3:
 								print("c = 2 ++++++++++++")
-								print("Leg_symbol[0] == 2 and isprime(",leg_symbol[1],") == True",leg_symbol[2],"!= 3")
+								print("Leg_symbol[0] == 3 and isprime(",leg_symbol[1],") == True",leg_symbol[2],"!= 3")
 								if p % 12 == 5 or p % 8 == 7: 
 									leg_symbol[2] = -1
 									print("13 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
