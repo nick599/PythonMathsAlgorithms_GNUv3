@@ -1,18 +1,16 @@
-print("Legendre_Symbol_factorisations_v7.py")
+print("Legendre_Symbol_factorisations_v10.py")
 print("Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.")
-print("Version 9. 15/11/2026.")
+print("Version 10. 19/11/2026.")
 print("Programmed & tested in Python 3 only")
 print("This program works out the Legendre Symbol of two numbers g & p specified by user.")
 print("It has been tested on Windows 11 Home x64")
-#print("Testing results .... of xxx in xxx seconds.")
 print("---------------------------------------------------------------------")
 
 #Copyright Nick Prowse 2026. Code Licenced under GNU GPL v3.
-#Version 9. 15/11/2026.
+#Version 10. 19/11/2026.
 #Programmed & tested in Python 3 only
 #This program works out the Legendre Symbol of two numbers g & p specified by user.
 #It has been tested on Windows 11 Home x64
-#Testing results .... of xxx in xxx seconds.
 
 #py3 files with factorisation algorithms
 import sys
@@ -27,6 +25,7 @@ import csv
 import time
 import functools
 import gmpy2
+from collections import Counter
 
 # Add the absolute path of the target folder(s) to Python's search path
 factorise_folder_path = os.path.abspath('/03_Components/01_Factorising')
@@ -97,6 +96,13 @@ def leg_s_g_p_new(g,p):
 
 	a = 0
 
+	#Check if p and g are prime
+
+	result_p = isprime(abs(p))
+	result_g = isprime(abs(g))
+	p_dirty = False
+	g_dirty = False
+
 	while g != 1 and g != -1 and g != 0: 
 
 		#print("~~~~~~~~~~~~~~~~~~~~~~~")
@@ -105,17 +111,24 @@ def leg_s_g_p_new(g,p):
 		#print("p is now:",p)
 		#print("number of loops:",a)
 
-		#Check if p and g are prime
+		if p_dirty:
+			result_p = isprime(abs(p))
+			p_dirty = False
 
-		if p > 0:
-			result_p = isprime(p)
-		elif p < 0: 
-			result_p = isprime(-p)
+		if g_dirty:
+			result_g = isprime(abs(g))
+			g_dirty = False
+			g_square_dirty = True
+
+		#if p > 0:
+		#	result_p = isprime(p)
+		#elif p < 0: 
+		#	result_p = isprime(-p)
 		
-		if g > 0:
-			result_g = isprime(g)
-		elif g < 0:
-			result_g = isprime(-g)		
+		#if g > 0:
+		#	result_g = isprime(g)
+		#elif g < 0:
+		#	result_g = isprime(-g)		
 
 		if result_p == False:
 			#print("p:",p,"is not prime! Legendre symbol undefined!")
@@ -177,21 +190,29 @@ def leg_s_g_p_new(g,p):
 		elif g > p:
 			#print("g > p")
 			g = g % p
+			g_dirty = True
+			g_square_dirty = True
 			#print("revised g:",g)
 
 		elif abs(g) > p and g < 0:
 			#print("abs(g) > p and g < 0")
 			g = -(-g % p)
 			#print("revised g:",g)
+			g_dirty = True
 
 		elif abs(g) < p and g < 0:
 			#print("abs(g) < p and g < 0")
 			g = g + p
 			#print("revised g:",g)
+			g_dirty = True
 
 		#Check for g being square number
 		elif isSquare(g) == True:
-			result_sqr = math.sqrt(g) % p
+			root_g = int(gmpy2.isqrt(abs(g)))
+			result_sqr = root_g % p
+
+			#result_sqr = math.sqrt(g) % p
+
 			if result_sqr != 0:
 				#print("g:",g,"is square and p does not divide sqrt(",g,")")
 				legendre_symbol_g_p = 1
@@ -207,14 +228,20 @@ def leg_s_g_p_new(g,p):
 			#print("2 is a factor of g:",g)
 								
 			i = 2
-			remainder = int(g / 2)
+			power = 0
+			remainder = g
+			
+			#remainder = int(g / 2)
 			#print("remainder is:",remainder)
-			power = 1
+			#power = 1
 			#divisible by a factor of 2
 				
 			while remainder % 2 == 0:
-				remainder = remainder / 2	
-				power = power + 1
+				remainder // 2	
+				power += 1
+
+				#remainder = remainder / 2	
+				#power = power + 1
 			
 			#print("power of 2 is:",power)
 
@@ -273,8 +300,11 @@ def leg_s_g_p_new(g,p):
 				#divisible by a factor of 3
 				
 				while remainder % 3 == 0:
-					remainder = remainder / 3		
-					power = power + 1
+					remainder //= 3		
+					power += 1
+
+					#remainder = remainder / 3		
+					#power = power + 1
 
 				#print("power is:",power)
 
@@ -314,13 +344,16 @@ def leg_s_g_p_new(g,p):
 						#p does not divide 3**power
 						#print("p does not divide 3**power")
 						#numerator of legendre symbol is divided by 3**power 
-						g = g / 3**power
+						g //= 3**power
+						#g = g / 3**power
 						#print("revised g:",g)
+						g_dirty = True
 
 				elif power % 2 == 1:
 					#power is odd and not 1, ie power >= 3
 					#print("Reducing g:",g,"by",int(3**(power-1)))
-					g = int(g / 3**(power-1))
+					g //= 3**(power - 1)
+					#g = int(g / 3**(power-1))
 					#print("revised g:",g)
 
 					#input("Waiting for user - TO DO")
@@ -371,13 +404,16 @@ def leg_s_g_p_new(g,p):
 						#print("p divides 5**power")
 						#numerator of legendre symbol becomes 0
 						legendre_symbol_g_p = 0
+						g = 0
 
 					else:
 						#p does not divide 5**power
 						#print("p does not divide 5**power")
 						#numerator of legendre symbol is divided by 5**power 
-						g = g / 5**power
+						g = // 5**power
+						#g = g / 5**power
 						#print("revised g:",g)
+						g_dirty = True
 
 				elif power % 2 == 1:
 					#power is odd
@@ -394,13 +430,21 @@ def leg_s_g_p_new(g,p):
 			numerator = (-1)**(power_n)
 
 			if numerator == 1:
-				temp = g
-				g = p
-				p = temp
+				g, p = p, g
+				g_dirty = True
+				p_dirty = True
+				
+				#temp = g
+				#g = p
+				#p = temp
 			elif numerator == -1:
-				temp = g
-				g = -p
-				p = temp
+				g, p = -p, g
+				g_dirty = True
+				p_dirty = True
+				
+				#temp = g
+				#g = -p
+				#p = temp
 			
 			#print("revised g:",g)
 			#print("revised p:",p)
@@ -500,16 +544,21 @@ def subs_legendre_symbol(leg_symbol,eval):
 							if leg_symbol[1] % 2 == 0:
 								#2 is a factor
 								#print("2 is a factor of leg_symbol[1]")
-								
-								i = 2
-								power = 1
-								while i*i < leg_symbol[1]:
-									power = power + 1
+								power = 0
+								temp = leg_symbol[1]
+								while temp % 2 == 0:
+									temp //= 2
+									power += 1
+
+								#i = 2
+								#power = 1
+								#while i*i < leg_symbol[1]:
+									#power = power + 1
 								#print("power of 2 is:",power)
 
 								if power % 2 == 0:
 									#divisible by a square of 2
-									if 2 % leg_symbol[1] == 0:
+									if leg_symbol[1] % 2 == 0:
 										leg_symbol[2] = 1
 										#print("1 --- Legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 										eval=True
@@ -692,7 +741,11 @@ def subs_legendre_symbol(leg_symbol,eval):
 
 					if not leg_symbol[0] == 1:
 						if leg_symbol[1] >=2:
-							if isprime(leg_symbol[0]) and leg_symbol[0] > 2:
+							p0_is_prime = isprime(leg_symbol[0])
+							p1_is_prime = isprime(leg_symbol[1])
+							
+							if p0_is_prime and leg_symbol[0] > 2:
+							#if isprime(leg_symbol[0]) and leg_symbol[0] > 2:
 								#mod 4 rules
 								if leg_symbol[0] % 4 == 1:
 									#print("leg_symbol[0] % 4 == 1")
@@ -712,7 +765,8 @@ def subs_legendre_symbol(leg_symbol,eval):
 										leg_symbol[1]=temp
 								#print("7 ~~~ Revised legendre_symbol after mod 4 rule:",leg_symbol)
 
-							elif leg_symbol[0] == 2 and isprime(leg_symbol[1]):
+							elif leg_symbol[0] == 2 and p1_is_prime:
+							#elif leg_symbol[0] == 2 and isprime(leg_symbol[1]):
 								#print("c = 1 ++++++++++++")
 								#print("Leg_symbol[0] == 2 and isprime(",leg_symbol[1],") == True")
 								if leg_symbol[1] % 8 == 1 or leg_symbol[1] % 8 == 7: 
@@ -730,7 +784,8 @@ def subs_legendre_symbol(leg_symbol,eval):
 									#print("12 --- legendre_symbol evaluated for:",leg_symbol,"as:",leg_symbol[2])
 									break
 
-							elif leg_symbol[0] == 3 and isprime(leg_symbol[1]) and leg_symbol[2] != 3:
+							elif leg_symbol[0] == 3 and p1_is_prime and leg_symbol[2] != 3:
+							#elif leg_symbol[0] == 3 and isprime(leg_symbol[1]) and leg_symbol[2] != 3:
 								#print("c = 2 ++++++++++++")
 								#print("Leg_symbol[0] == 3 and isprime(",leg_symbol[1],") == True",leg_symbol[2],"!= 3")
 								if leg_symbol[1] % 12 == 5 or leg_symbol[1] % 12 == 7: 
@@ -836,30 +891,31 @@ def factorise_powers(N):
 	#Call size_input_check() if want to stop program running for very large numbers 
 	#size_input_check()
 
-	len_N = len(str(N))
+	bit_len_N = N.bit_length()
+	#len_N = len(str(N))
 
-	#if len_N <= 5:
+	#if bit_len_N <= 5:
 	#	result1 = w235_primefactors_powers_v5.factorise_trialdivision(N)
 	#	#return factors, c_factorisations
 	#	factors = result1[0]
 	#	c_factorisations = result1[1]
 
-	if 0 < len_N <= 10:
+	if bit_len_N <= 20:
 
-	#elif 5 < len_N <= 10:
+	#elif 5 < bit_len_N <= 10:
 		result1 = w235_primefactors_powers_v5.factorise_235wheel(N)
 		#return factors, c_factorisations
 		factors = result1[0]
 		c_factorisations = result1[1]
 
-	elif 20 < len_N <= 30: #Typical according to Google Gemini
+	elif 20 < bit_len_N <= 30: #Typical according to Google Gemini
 	#	#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits).
 		result1 = factorise_pollards_rho(N)
 		#return factors, c_factorisations
 		factors = result1[0]
 		c_factorisations = result1[1]
 
-	#elif 30 < len_N <= 40: #Typical according to Google Gemini
+	#elif 30 < bit_len_N <= 40: #Typical according to Google Gemini
 		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits) before handing the remaining composite over to ECM.
 	#	result1 = factorise_pollards_rho(N)
 	#	#return factors, c_factorisations
@@ -871,7 +927,7 @@ def factorise_powers(N):
 	#	factors = result2[0]
 	#	c_factorisations = result2[1]
 
-	#elif 40 < len_N <= 50: #Self Initializing Quadratic SIeve (SIQS / MPQS)
+	#elif 40 < bit_len_N <= 50: #Self Initializing Quadratic SIeve (SIQS / MPQS)
 		#"Self-Initializing Quadratic Sieve (SIQS / MPQS). This is the lower bound where the Quadratic Sieve begins to outpace ECM for tough semiprimes with equally sized factors"
 		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits) before handing the remaining composite over to SIQS.
 	#	result1 = factorise_pollards_rho(N)
@@ -889,7 +945,7 @@ def factorise_powers(N):
 	#	factors = result3[0]
 	#	c_factorisations = result3[1]
 
-	#elif 50 < len_N <= 100: #QS dominance
+	#elif 50 < bit_len_N <= 100: #QS dominance
 		#Includes variants MPQS and SIQS
 
 		#"run for a fixed, limited number of iterations to quickly pull out any "small" prime factors (up to roughly 10–15 decimal digits) before handing the remaining composite over to SIQS.
@@ -908,7 +964,7 @@ def factorise_powers(N):
 	#	factors = result3[0]
 	#	c_factorisations = result3[1]
 
-	#elif 100 < len_N <= 110: #NFS - SIQS to GNFS transition zone
+	#elif 100 < bit_len_N <= 110: #NFS - SIQS to GNFS transition zone
 	#	result1 = factorise_SIQS(N)
 		#return factors, c_factorisations
 	#	factors = result1[0]
@@ -919,7 +975,7 @@ def factorise_powers(N):
 	#	factors = result2[0]
 	#	c_factorisations = result2[1]
 
-	#elif 110 < len_N: #NFS - GNFS era
+	#elif 110 < bit_len_N: #NFS - GNFS era
 	#	result1 = factorise_GNFS(N)
 		#return factors, c_factorisations
 	#	factors = result1[0]
@@ -968,7 +1024,8 @@ def factorise_235wheel(N):
 		while N % f == 0:		
 			#f is a factor. Add factor f to fs
 			factors.append(f)
-			N /= f
+			N //= f
+			#N /= f
 		f += gaps[next]		
 		next += 1
 		if next == length:
@@ -1026,17 +1083,23 @@ def gcd_fast(a, b):
     return int(gmpy2.gcd(a, b))
 
 def isSquare(N):
-	#Checks for divisibility by square numbers giving remainder of 1
-	if N==1:
-		return True
+	"""Checks if N is a square number using C-optimized gmpy2."""
+	if N < 0:
+		return False
+	return bool(gmpy2.is_square(int(N)))
 
-	i = 2
-	while i**2 <= N:
-		if N / i**2 == 1:
-			return True
-		i += 1
+#def isSquare(N):
+#	#Checks for divisibility by square numbers giving remainder of 1
+#	if N==1:
+#		return True
 
-	return False
+#	i = 2
+#	while i**2 <= N:
+#		if N / i**2 == 1:
+#			return True
+#		i += 1
+
+#	return False
 
 def mod_inverse(a: int, m: int) -> int:
 	"""
@@ -1105,7 +1168,9 @@ def is_primitive_root(g, p):
 
 	#Step 1: Get the unique prime factors of phi(p) which is p-1
 	totient = p - 1
-	prime_factors = get_unique_prime_factors(totient)
+	prime_factors, _ = factorise_powers(totient)[:2]
+
+	#prime_factors = get_unique_prime_factors(totient)
 	#print("prime factors of p-1:",prime_factors)
 
 	# Step 2: Test powers
@@ -1171,26 +1236,35 @@ def calc_primefactors_powers(N, factors):
 	prime_factors=[]
 	fac_list = []
 	c_calc_primefactors = 0
-	s_before_primefactors = time.time()	
-	for factor in factors:		
+	s_before_primefactors = time.time()
+
+	counts = Counter(factors)
+	prime_factors = list(counts.keys())
+	c_calc_primefactors = time.time() - s_before_primefactors
+
+	s_before_calc_powers = time.time()
+	powers = list(counts.values())
+	c_calc_powers = time.time() - s_before_calc_powers
+
+	#for factor in factors:		
 		#print("------------------"	
 		#print("factor is: "+str(factor)		
-		if factor not in fac_list:
+	#	if factor not in fac_list:
 			#factor is not in fac_list
 			#add factor to prime_factors
-			prime_factors.append(factor)
+	#		prime_factors.append(factor)
 			#print("Added "+str(factor)+" to prime_factors"
 			#print("prime_factors is: "+str(prime_factors)
 			#print str(factor)+" is NOT in fac_list"
 			#append it				
-			fac_list.append(factor)				
+	#		fac_list.append(factor)				
 			
 			#print("count is: "+str(count)
 			#print("fac_list is: "+str(fac_list)
 				
-		else:
+	#	else:
 			#factor is in fac_list
-			fac_list.append(factor)
+	#		fac_list.append(factor)
 			#print str(factor)+" added to fac_list"
 	
 	#prime_factors = fs
@@ -1199,17 +1273,21 @@ def calc_primefactors_powers(N, factors):
 	#print("Added "+str(factor)+" to prime_factors"
 	
 	#print("Prime_factors are: "+str(prime_factors)
-	c_calc_primefactors = time.time() - s_before_primefactors
+	#c_calc_primefactors = time.time() - s_before_primefactors
 
-	powers = []
-	s_before_calc_powers = time.time()
-	for prime_factor in prime_factors:
-		count = 0
-		while N % prime_factor == 0:
-			count = count + 1
-			N = N / prime_factor		
-		else:
-			powers.append(count)
+	#powers = []
+	#s_before_calc_powers = time.time()
+
+	#for prime_factor in prime_factors:
+	#	count = 0
+	#	while N % prime_factor == 0:
+	#		count += 1
+	#		N //= prime_factor	
+	#		
+	#		#count = count + 1
+	#		#N = N / prime_factor		
+	#	else:
+	#		powers.append(count)
 				
 	#print("powers are: "+str(powers)
 	c_calc_powers = time.time() - s_before_calc_powers
@@ -1218,11 +1296,22 @@ def calc_primefactors_powers(N, factors):
 
 	return prime_factors, powers, c_calc_primefactors, c_calc_powers
 
+def legendre_euler(g: int, p: int) -> int:
+	if p <= 2 or not isprime(p):
+		raise ValueError("p must be an odd prime")
+	g %= p
+	if g == 0:
+		return 0
+	res = pow(g, (p - 1) // 2, p)
+	return -1 if res == p - 1 else res
+
 if __name__=='__main__':
 	#main()
 	#result = leg_s_g_p_new(2, 1009)
 	#result = leg_s_g_p_new(51, 1009)
-	result = leg_s_g_p_new(513, 100907)
+	#result = leg_s_g_p_new(513, 100907)
+
+	result = legendre_euler(51, 1009)
 
 	print("legendre_symbol_g_p is:",str(result))
 
